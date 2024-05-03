@@ -6,4 +6,16 @@
     <color name="red">#FF0000</color>
     <color name="pink">#C13584</color>
     <color name="gray">#737373</color>
+
+
+    // step view
+    <color name="stepview_line_done">@color/blue</color>
+    <color name="stepview_line_next">#ADDEF4</color>
+    <color name="stepview_text_next">#ADDEF4</color>
+    <color name="stepview_text_done">#ADDEF4</color>
+    <color name="stepview_text_selected">@color/blue</color>
+    <color name="stepview_circle_done">@color/blue</color>
+    <color name="stepview_circle_selected">@color/blue</color>
+    <color name="stepview_selected_number">#25448a</color>
+    <color name="stepview_mark">@color/stepview_selected_number</color>
 </resources>

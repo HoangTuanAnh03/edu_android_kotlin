@@ -4,17 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="32dp"
-    tools:context=".SignInActivity">
+    android:paddingHorizontal="32dp"
+    android:paddingTop="16dp"
+    android:paddingBottom="32dp"
+    tools:context=".views.SignInActivity">
 
     <ImageView
         android:id="@+id/image"
-        android:layout_width="96dp"
-        android:layout_height="96dp"
-        android:layout_marginTop="48dp"
-        android:src="@drawable/instagram"
+        android:layout_width="match_parent"
+        android:layout_height="189dp"
+        android:layout_marginTop="4dp"
+        android:src="@drawable/logo_app"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.509"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -23,7 +25,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="20dp"
         android:hint="Email"
         app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
@@ -98,6 +100,7 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/forgetPassword"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -115,7 +118,7 @@
         android:text="Sign In"
         android:textSize="18sp"
         app:backgroundTint="@color/blue"
-        app:cornerRadius="8dp"
+        app:cornerRadius="4dp"
         app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/linearLayout2"
