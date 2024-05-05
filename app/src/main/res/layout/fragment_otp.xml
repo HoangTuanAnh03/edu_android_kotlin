@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".views.forgetpassword.OtpFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:paddingLeft="32dp"
+        android:paddingRight="32dp"
+        tools:ignore="MissingClass">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottieAnimationView2"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_rawRes="@raw/sent_mail" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/merriweathersans_semibold"
+            android:text="Verification"
+            android:textAlignment="center"
+            android:textSize="32sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lottieAnimationView2" />
+
+        <TextView
+            android:id="@+id/guideOtp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/guide_otp"
+            android:textAlignment="center"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+        <TextView
+            android:id="@+id/countdownTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@color/red"
+            android:text="Time remaining  05 : 00"
+            android:layout_marginTop="32dp"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/guideOtp" />
+
+
+        <com.chaos.view.PinView
+            android:id="@+id/pinview"
+            style="@style/PinWidget.PinView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:cursorVisible="true"
+            android:gravity="center"
+            android:inputType="number"
+            android:itemBackground="@color/white"
+            app:hideLineWhenFilled="false"
+            app:itemCount="6"
+            app:itemHeight="50dp"
+            app:itemRadius="10dp"
+            app:itemWidth="50dp"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/countdownTime"
+            app:lineColor="@color/blue" />
+
+        <TextView
+            android:id="@+id/error"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:visibility="gone"
+            android:text="Show Error"
+            android:textColor="@color/red"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/pinview" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_verifi"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginTop="16dp"
+            android:text="Verifi"
+            android:textSize="20sp"
+            app:backgroundTint="@color/blue"
+            app:cornerRadius="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/error" />
+
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_resent"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginTop="10dp"
+            android:text="Resent OTP"
+            android:textColor="@color/gray"
+            android:textSize="20sp"
+            app:backgroundTint="@color/white"
+            app:cornerRadius="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_verifi" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>
