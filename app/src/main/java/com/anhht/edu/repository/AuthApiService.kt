@@ -58,7 +58,7 @@ class AuthApiService {
 
     fun exitEmail(email: String, onResult: (ResponseApi<String>?) -> Unit) {
         val retrofit = ServiceBuilder.buildService(AuthApi::class.java)
-        retrofit.exitEmail(email)!!.enqueue(
+        retrofit.exitEmail(email).enqueue(
             object : Callback<ResponseApi<String>> {
                 override fun onFailure(call: Call<ResponseApi<String>>, t: Throwable) {
                     Log.e("exitEmail", "Error : " + t.message)

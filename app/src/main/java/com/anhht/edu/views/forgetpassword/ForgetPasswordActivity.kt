@@ -3,7 +3,6 @@ package com.anhht.edu.views.forgetpassword
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.FragmentTransaction
 import com.anhht.edu.R
 import com.anhht.edu.databinding.ActivityForgetPasswordBinding
@@ -20,10 +19,7 @@ class ForgetPasswordActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
 
-        val emailFragment = NotificationFragment()
-//        val bundle = Bundle()
-//        bundle.putString("email", intent.getStringExtra("email"))
-//        notificationFragment.arguments = bundle
+        val emailFragment = EmailFragment()
 
         supportFragmentManager.beginTransaction().apply {
             add(R.id.forgetPasswordLayout, emailFragment, "emailFrag")
@@ -38,7 +34,6 @@ class ForgetPasswordActivity : AppCompatActivity() {
             val backEntry = supportFragmentManager.getBackStackEntryAt(index)
             val tag = backEntry.name;
             val fragment = supportFragmentManager.findFragmentByTag(tag)
-            Log.d("Frag", fragment?.tag.toString())
 
             if (tag == "emailFrag") {
                 intent = Intent(this, SignInActivity::class.java)

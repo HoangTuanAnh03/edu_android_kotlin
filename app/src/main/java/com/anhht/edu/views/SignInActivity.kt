@@ -6,6 +6,8 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Html
+import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -41,11 +43,9 @@ class SignInActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
         val currentUser = auth.currentUser
-//        if (sessionManager.fetchStateLogin()=="false") {
-//            val intent = Intent(this, HomeActivity::class.java)
-//            startActivity(intent)
-//            finish()
-//        }
+
+        handleRemoveError()
+
 
         binding.redirectSignUp.text = Html.fromHtml(
             "<font color=${Color.BLACK}>Don't have an account? </font>" + "<font color=${Color.BLUE}> Sign up.</font>"
@@ -60,15 +60,6 @@ class SignInActivity : AppCompatActivity() {
         binding.redirectSignUp.setOnClickListener {
             startActivity(Intent(this, SignUpActivity::class.java))
             finish()
-        }
-
-        binding.emailInput.setOnClickListener {
-            binding.email.error = null
-        }
-
-        binding.passwordInput.setOnClickListener {
-            binding.password.isErrorEnabled = false
-            binding.password.error = null
         }
 
         binding.forgetPassword.setOnClickListener {
@@ -87,24 +78,29 @@ class SignInActivity : AppCompatActivity() {
             launcher.launch(signInIntent)
         }
 
-        binding.signInBtn.setOnClickListener {
+        val btnLogin = findViewById<View>(R.id.sign_in_btn)
+        findViewById<TextView>(R.id.btn_loading_layout_tv)!!.text = "Sign In"
+        btnLogin.setOnClickListener {
             if (validField()) {
+                val progressbar = BtnLoadingProgressbar(it)
+                progressbar.setLoading()
                 val loginRequest = LoginRequest(
                     binding.email.editText?.text.toString(),
                     binding.password.editText?.text.toString()
                 )
 
-                apiService.signIn(loginRequest) {
-                    if (it != null) {
-                        if (it.status == "OK") {
+                apiService.signIn(loginRequest) {resultSignIn ->
+                    progressbar.reset()
+                    if (resultSignIn != null) {
+                        if (resultSignIn.status == "OK") {
 
                             Toast.makeText(
                                 this@SignInActivity,
                                 "Login Success" + sessionManager.fetchAuthAccessToken(),
                                 Toast.LENGTH_SHORT
                             ).show()
-                            sessionManager.saveAuthAccessToken(it.data.tokens.accessToken)
-                            sessionManager.saveAuthRefreshToken(it.data.tokens.refreshToken)
+                            sessionManager.saveAuthAccessToken(resultSignIn.data.tokens.accessToken)
+                            sessionManager.saveAuthRefreshToken(resultSignIn.data.tokens.refreshToken)
                             sessionManager.saveStateLogin("true")
 
                             if (binding.switchRemember.isChecked) {
@@ -121,7 +117,7 @@ class SignInActivity : AppCompatActivity() {
                             finish()
                         } else Toast.makeText(
                             this@SignInActivity,
-                            "Login Failed",
+                            "Email or Password incorrect!",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
@@ -130,28 +126,58 @@ class SignInActivity : AppCompatActivity() {
         }
     }
 
-    private fun validField(): Boolean {
-        if (binding.email.editText?.text.toString().trim().isEmpty()) {
-            binding.email.error = "Email not empty!"
-            return false;
-        }
-        if (!ValidateDataUtil.isEmail(binding.email.editText?.text.toString().trim())) {
-            binding.email.error = "Invalid email format"
-            return false;
+    private fun handleRemoveError() {
+        binding.emailInput.setOnClickListener {
+            binding.email.error = null
+            binding.email.errorIconDrawable = null
+            binding.email.isErrorEnabled = false
         }
 
-        if (binding.password.editText?.text.toString().isEmpty()) {
-            binding.password.isErrorEnabled = true
-            binding.password.error = "Password not empty!"
-            return false;
+        binding.passwordInput.setOnClickListener {
+            binding.password.isErrorEnabled = false
+            binding.password.error = null
+        }
+
+        binding.email.setOnClickListener {
+            binding.email.error = null
+            binding.email.isErrorEnabled = false
+
+            binding.emailInput.requestFocus()
+        }
+
+        binding.password.setOnClickListener {
+            binding.password.isErrorEnabled = false
+            binding.password.error = null
+        }
+    }
+
+    private fun validField(): Boolean {
+        var result = true
+
+        if (!ValidateDataUtil.isEmail(binding.email.editText?.text.toString().trim())) {
+            binding.email.isErrorEnabled = true
+            binding.email.error = "Invalid email format"
+            result = false
+        }
+
+        if (binding.email.editText?.text.toString().trim().isEmpty()) {
+            binding.email.isErrorEnabled = true
+            binding.email.error = "Email not empty!"
+            result = false
         }
 
         if (!ValidateDataUtil.isPassWord(binding.password.editText?.text.toString())) {
             binding.password.isErrorEnabled = true
             binding.password.error = "Password must have at least 8 characters"
-            return false;
+            result = false
         }
-        return true;
+
+        if (binding.password.editText?.text.toString().isEmpty()) {
+            binding.password.isErrorEnabled = true
+            binding.password.error = "Password not empty!"
+            result = false
+        }
+        return result;
     }
 
 

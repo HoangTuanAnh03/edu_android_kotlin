@@ -1,38 +1,48 @@
 package com.anhht.edu.views.forgetpassword
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.anhht.edu.R
 import com.anhht.edu.databinding.FragmentEmailBinding
 import com.anhht.edu.repository.AuthApiService
 import com.anhht.edu.utils.ValidateDataUtil
-import com.anhht.edu.utils.setProgressDialog
+import com.anhht.edu.views.BtnLoadingProgressbar
 
 
 class EmailFragment : Fragment() {
     private lateinit var binding: FragmentEmailBinding
     private val apiService = AuthApiService()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentEmailBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         handlerRemoveError()
 
+        view.findViewById<TextView>(R.id.btn_loading_layout_tv)!!.text = "Continue"
 
-        binding.btnContinue.setOnClickListener {
+        val btnContinue = view.findViewById<View>(R.id.btn_continue_email)!!
+
+        btnContinue.setOnClickListener {
             if (handlerValidate()) {
-                val processDialog = setProgressDialog(requireContext(), "Sent OTP to your email...")
-                processDialog.show()
-                apiService.forgetPassword(binding.email.editText!!.text.toString()) {it1 ->
-
-                    processDialog.hide()
-//                    if (it1?.status.toString() == "OK") {
+                val progressbar = BtnLoadingProgressbar(it)
+                progressbar.setLoading()
+                apiService.forgetPassword(binding.email.editText!!.text.toString()) { it1 ->
+                    progressbar.reset()
+                    if (it1?.status.toString() == "OK") {
                         val otpFragment = OtpFragment()
                         val bundle = Bundle()
                         bundle.putString("email", binding.email.editText!!.text.toString())
@@ -45,16 +55,14 @@ class EmailFragment : Fragment() {
                             addToBackStack("otpFrag")
                             commit()
                         }
-//                    }
+                    }
                     if (it1?.status.toString() == "BAD_REQUEST") {
-                        binding.email.error = "You have entered the wrong OTP more than 5 times. Please wait another 5 minutes"
+                        binding.email.error =
+                            "You have entered the wrong OTP more than 5 times. Please wait another 5 minutes"
                     }
                 }
             }
         }
-
-
-        return binding.root
     }
 
     private fun handlerValidate(): Boolean {

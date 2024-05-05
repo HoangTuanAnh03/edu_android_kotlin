@@ -6,28 +6,25 @@
     android:layout_height="match_parent"
     tools:context=".views.TestActivity">
 
-    <FrameLayout
-        android:id="@+id/frame"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-    <com.chaos.view.PinView
-        android:id="@+id/pinview"
-        style="@style/PinWidget.PinView"
+    <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="24dp"
-        android:cursorVisible="true"
-        android:gravity="center"
-        android:inputType="number"
-        android:itemBackground="@color/white"
-        app:hideLineWhenFilled="false"
-        app:itemCount="6"
-        app:itemHeight="50dp"
-        app:itemRadius="10dp"
-        app:itemWidth="50dp"
-        app:layout_constraintHorizontal_bias="0.492"
+        android:text="Hello World!"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <include
+        android:id="@+id/activity_main_btn"
+        layout="@layout/btn_loading_layout"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/textView"
+        app:layout_constraintStart_toStartOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

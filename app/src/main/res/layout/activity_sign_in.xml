@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingHorizontal="32dp"
+    android:background="@color/white"
     android:paddingTop="16dp"
     android:paddingBottom="32dp"
     tools:context=".views.SignInActivity">
@@ -27,7 +28,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:hint="Email"
-        app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -110,19 +110,17 @@
 
     </LinearLayout>
 
-    <com.google.android.material.button.MaterialButton
+    <include
         android:id="@+id/sign_in_btn"
-        android:layout_width="347dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="20dp"
-        android:text="Sign In"
-        android:textSize="18sp"
-        app:backgroundTint="@color/blue"
-        app:cornerRadius="4dp"
+        layout="@layout/btn_loading_layout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/linearLayout2"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+
 
     <LinearLayout
         android:id="@+id/linearLayout"

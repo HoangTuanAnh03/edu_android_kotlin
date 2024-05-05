@@ -21,7 +21,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
-            app:lottie_rawRes="@raw/password" />
+            app:lottie_rawRes="@raw/forget_password" />
 
         <TextView
             android:id="@+id/textView5"
@@ -94,7 +94,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_verifi"
+            android:id="@+id/btn_update"
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_marginTop="10dp"

@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.FragmentTransaction
@@ -20,6 +21,7 @@ import com.anhht.edu.model.request.RegisterRequest
 import com.anhht.edu.repository.AuthApiService
 import com.anhht.edu.utils.ValidateDataUtil
 import com.anhht.edu.utils.setProgressDialog
+import com.anhht.edu.views.BtnLoadingProgressbar
 import com.anhht.edu.views.MainActivity
 import com.anhht.edu.views.SignInActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -34,12 +36,11 @@ class RegisterFragment : Fragment() {
     private lateinit var binding: FragmentRegisterBinding
     private var apiService = AuthApiService()
     private lateinit var auth: FirebaseAuth
-//    private var currentStep = 1
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentRegisterBinding.inflate(inflater, container, false)
         auth = FirebaseAuth.getInstance()
 
@@ -85,41 +86,80 @@ class RegisterFragment : Fragment() {
         return binding.root
     }
 
-    private fun handlerRegister() {
-        val processDialog = setProgressDialog(requireContext(), "Sent to your email...")
-        processDialog.show()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        val registerRequest = RegisterRequest(
-            binding.email.editText!!.text.toString().trim(),
-            binding.fullname.editText!!.text.toString(),
-            binding.confirmPassword.editText!!.text.toString()
-        )
+        val btnRegister = view.findViewById<View>(R.id.btn_register)!!
 
-        apiService.register(registerRequest) {
-            processDialog.hide()
-            if (it?.status.toString() == "CONFLICT") {
-                Toast.makeText(requireContext(), "Email already exists!!", Toast.LENGTH_SHORT)
-                    .show()
-            }
-            if (it?.status.toString() == "OK") {
-//                Toast.makeText(requireContext(), "OK", Toast.LENGTH_SHORT).show()
-                val notificationFragment = NotificationFragment()
-                val bundle = Bundle()
-                bundle.putString("email", binding.email.editText!!.text.toString())
-                notificationFragment.arguments = bundle
 
-                requireActivity().supportFragmentManager.beginTransaction().apply {
-                    replace(R.id.register_frame_layout, notificationFragment, "notificationFrag")
-                    setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                    setReorderingAllowed(true)
-                    addToBackStack("notificationFrag")
-                    commit()
+        btnRegister.setOnClickListener {
+            if (validPassword()) {
+
+                val progressbar = BtnLoadingProgressbar(it)
+                progressbar.setLoading()
+
+                val registerRequest = RegisterRequest(
+                    binding.email.editText!!.text.toString().trim(),
+                    binding.fullname.editText!!.text.toString(),
+                    binding.confirmPassword.editText!!.text.toString()
+                )
+
+                apiService.register(registerRequest) { resultRegister ->
+                    progressbar.reset()
+                    if (resultRegister?.status.toString() == "CONFLICT") {
+                        Toast.makeText(
+                            requireContext(),
+                            "Email already exists!!",
+                            Toast.LENGTH_SHORT
+                        )
+                            .show()
+                    }
+                    if (resultRegister?.status.toString() == "OK") {
+                        val notificationFragment = NotificationFragment()
+                        val bundle = Bundle()
+                        bundle.putString("email", binding.email.editText!!.text.toString())
+                        notificationFragment.arguments = bundle
+
+                        requireActivity().supportFragmentManager.beginTransaction().apply {
+                            replace(
+                                R.id.register_frame_layout,
+                                notificationFragment,
+                                "notificationFrag"
+                            )
+                            setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                            setReorderingAllowed(true)
+                            addToBackStack("notificationFrag")
+                            commit()
+                        }
+                    } else {
+                        Toast.makeText(requireContext(), "Register Fail!!", Toast.LENGTH_SHORT)
+                            .show()
+                    }
                 }
-            } else {
-                Toast.makeText(requireContext(), "Register Fail!!", Toast.LENGTH_SHORT).show()
             }
         }
     }
+
+    private fun validPassword(): Boolean {
+        var result = true
+
+        if (binding.password.editText!!.text.toString() != binding.confirmPassword.editText!!.text.toString()) {
+            binding.confirmPassword.error = "Password and Confirm Password not match"
+            result = false
+        }
+
+        if (binding.confirmPassword.editText?.text.toString().trim().isEmpty()) {
+            binding.confirmPassword.error = "Confirm Password not empty"
+            result = false
+        }
+
+        if (binding.password.editText?.text.toString().trim().isEmpty()) {
+            binding.password.error = "Password not empty"
+            result = false
+        }
+        return result
+    }
+
 
     private fun handlerRemoveError() {
         binding.email.setOnClickListener {
@@ -151,6 +191,9 @@ class RegisterFragment : Fragment() {
 
     private fun handlerDisplayField(type: Int) {
         val currentStep = binding.stepView.currentStep
+        val btnRegisterTV = view?.findViewById<TextView>(R.id.btn_loading_layout_tv)!!
+        val btnRegister = view?.findViewById<View>(R.id.btn_register)!!
+
 
         when (binding.stepView.currentStep + 1) {
             1 -> {
@@ -220,6 +263,12 @@ class RegisterFragment : Fragment() {
 
                     binding.linearLayout.visibility = View.GONE
                     binding.linearLayout2.visibility = View.GONE
+
+                    binding.btnContinue.visibility = View.GONE
+                    btnRegisterTV.text = "Register"
+                    btnRegister.visibility = View.VISIBLE
+
+
                 }
             }
 
@@ -238,23 +287,9 @@ class RegisterFragment : Fragment() {
 
                     binding.linearLayout.visibility = View.VISIBLE
                     binding.linearLayout2.visibility = View.VISIBLE
-                }
-                if (type == 1) {
-                    if (binding.password.editText?.text.toString().trim().isEmpty()) {
-                        binding.password.error = "Password not empty"
-                    }
 
-                    if (binding.confirmPassword.editText?.text.toString().trim().isEmpty()) {
-                        binding.confirmPassword.error = "Confirm Password not empty"
-                        return
-                    }
-
-                    if (binding.password.editText!!.text.toString() != binding.confirmPassword.editText!!.text.toString()) {
-                        binding.confirmPassword.error = "Password and Confirm Password not match"
-                        return
-                    }
-
-                    handlerRegister()
+                    binding.btnContinue.visibility = View.VISIBLE
+                    btnRegister.visibility = View.GONE
                 }
             }
         }
@@ -308,7 +343,10 @@ class RegisterFragment : Fragment() {
                                         }
                                         if (it1?.data.toString() == "false") {
                                             val processDialog =
-                                                setProgressDialog(requireContext(), "Sent to your email...")
+                                                setProgressDialog(
+                                                    requireContext(),
+                                                    "Sent to your email..."
+                                                )
                                             processDialog.show()
                                             apiService.register(
                                                 RegisterRequest(

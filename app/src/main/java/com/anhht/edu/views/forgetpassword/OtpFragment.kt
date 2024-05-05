@@ -1,15 +1,12 @@
 package com.anhht.edu.views.forgetpassword
 
-import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.FragmentTransaction
 import com.anhht.edu.R
 import com.anhht.edu.databinding.FragmentOtpBinding
@@ -45,36 +42,46 @@ class OtpFragment : Fragment() {
                     )
                 )
                 binding.countdownTime.text = "Time remaining " + hms
+
             }
 
             override fun onFinish() {
                 binding.countdownTime.text = "The OTP has expired.\n Please press the Resent OTP"
-                binding.btnVerifi.isEnabled = false
+//                binding.btnVerifi.isEnabled = false
+                binding.btnVerifi.visibility = View.GONE
+                binding.error.visibility = View.GONE
+                binding.error.text = ""
+                binding.pinview.setLineColor(Color.BLUE)
+                binding.btnResent.isEnabled = true
             }
         }
         timer.start()
 
         binding.btnResent.setOnClickListener {
+
             val processDialog = setProgressDialog(requireContext(), "Resent OTP to your email...")
             processDialog.show()
             apiService.forgetPassword(email) {
                 processDialog.hide()
                 if (it?.status.toString() == "OK") {
-                    binding.btnVerifi.isEnabled = true
+//                    binding.btnVerifi.isEnabled = true
+                    binding.btnVerifi.visibility = View.VISIBLE
                     binding.error.visibility = View.GONE
                     binding.error.text = ""
                     binding.pinview.setLineColor(Color.BLUE)
                     timer.start()
                 }
                 if (it?.status.toString() == "BAD_REQUEST") {
-                    binding.error.text = "You have entered the wrong OTP more than 5 times. Please wait another 5 minutes"
+                    binding.error.text =
+                        "You have entered the wrong OTP more than 5 times. Please wait another 5 minutes"
+                    binding.btnResent.isEnabled = false
                 }
             }
         }
         binding.btnVerifi.setOnClickListener {
             if (binding.pinview.text.toString().length == 6) {
                 apiService.checkOtp(email, binding.pinview.text.toString()) {
-//                    if (it?.data.toString() == "true"){
+                    if (it?.data.toString() == "true") {
                         val confirmFragment = ConfirmFragment()
                         val bundle = Bundle()
                         bundle.putString("email", email)
@@ -86,22 +93,26 @@ class OtpFragment : Fragment() {
                             setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                             setReorderingAllowed(true)
                             addToBackStack("confirmFrag")
-//                            remove(this@OtpFragment)
+                            activity?.supportFragmentManager!!.popBackStackImmediate()
                             commit()
                         }
-//                    }
-                    if (it?.data.toString() == "false"){
+                    }
+                    if (it?.data.toString() == "false") {
                         binding.error.visibility = View.VISIBLE
                         binding.error.text = "The OTP is incorrect."
                         binding.pinview.setLineColor(Color.RED)
                     }
 
-                    if (it?.data.toString() == "FailAttempt"){
+                    if (it?.data.toString() == "FailAttempt") {
                         binding.error.visibility = View.VISIBLE
                         binding.countdownTime.text = ""
-                        binding.error.text = "You have entered the wrong OTP more than 5 times. Please wait another 5 minutes"
+                        binding.btnVerifi.visibility = View.GONE
+                        timer.cancel()
+                        timer.start()
+                        binding.btnResent.isEnabled = false
+                        binding.error.text =
+                            "You have entered the wrong OTP more than 5 times. Please wait another 5 minutes"
                     }
-
                 }
             } else {
                 binding.error.visibility = View.VISIBLE
