@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:id="@+id/cardTopic"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="5dp"
+    android:layout_margin="10dp"
+    app:cardCornerRadius="5dp"
+    app:cardElevation="5dp">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="5dp">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:id="@+id/topicTitle"
+
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_marginStart="10dp"
+                android:textSize="17sp"
+                android:layout_centerVertical="true"
+                android:layout_height="wrap_content"
+                android:id="@+id/topicTitleDesc"
+                android:textStyle="italic"
+                android:text="Chủ đề:">
+            </TextView>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_marginStart="3dp"
+                android:textSize="19sp"
+                android:textStyle="bold"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="10dp"
+
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/topicTitleDesc"
+                android:id="@+id/topicName"
+                android:text="ABC">
+            </TextView>
+        </RelativeLayout>
+
+        <!--        <RelativeLayout-->
+        <!--            android:layout_below="@+id/topicTitle"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:id="@+id/countWord"-->
+        <!--            android:layout_marginTop="6dp"-->
+        <!--            android:layout_height="wrap_content">-->
+
+        <!--        <ImageView-->
+        <!--            android:layout_width="20dp"-->
+        <!--            android:layout_marginStart="18dp"-->
+        <!--            android:id="@+id/ic_word"-->
+        <!--            android:src="@drawable/icon_word"-->
+        <!--            android:layout_centerVertical="true"-->
+        <!--            android:layout_height="20dp">-->
+        <!--        </ImageView>-->
+        <!--            <TextView-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:text = "Chủ đề bao gồm"-->
+        <!--                android:textSize="17sp"-->
+        <!--                android:id="@+id/topicDesc"-->
+        <!--                android:layout_toEndOf="@+id/ic_word"-->
+        <!--                android:layout_marginStart="2dp"-->
+        <!--                android:layout_centerVertical="true"-->
+        <!--                android:layout_height="wrap_content">-->
+        <!--            </TextView>-->
+        <!--            <TextView-->
+        <!--                android:textStyle="bold"-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:text = "10"-->
+        <!--                android:id="@+id/numWord"-->
+        <!--                android:textSize="17sp"-->
+        <!--                android:layout_marginStart="2dp"-->
+        <!--                android:layout_centerVertical="true"-->
+        <!--                android:layout_toEndOf="@+id/topicDesc"-->
+        <!--                android:layout_height="wrap_content">-->
+        <!--            </TextView>-->
+        <!--            <TextView-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:text = "từ"-->
+        <!--                android:textSize="17sp"-->
+        <!--                android:layout_marginStart="2dp"-->
+        <!--                android:layout_centerVertical="true"-->
+        <!--                android:layout_toEndOf="@+id/numWord"-->
+        <!--                android:layout_height="wrap_content">-->
+        <!--            </TextView>-->
+        <!--        </RelativeLayout>-->
+        <ProgressBar
+            android:id="@+id/topicProgress"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="10dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/topicTitle"
+
+            android:progress="25"/>
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

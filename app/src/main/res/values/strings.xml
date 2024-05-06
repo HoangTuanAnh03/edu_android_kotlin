@@ -5,4 +5,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="register_email">Click on the confirmation link we sent to %1$s \n Then sign in to the app</string>
     <string name="guide_otp">Enter the 6-digit code we sent to \n %1$s</string>
+    <string name="learn">Học Từ Vựng</string>
+    <string name="test">Kiểm Tra</string>
+    <string name="reward">Đổi Thưởng</string>
+    <string name="game">Trò Chơi</string>
 </resources>

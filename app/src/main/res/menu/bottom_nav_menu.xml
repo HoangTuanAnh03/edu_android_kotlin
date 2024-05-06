@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_learn"
+        android:icon="@drawable/icons_book"
+        android:title="@string/learn"/>
+
+    <item
+        android:id="@+id/navigation_test"
+        android:icon="@drawable/icons_test"
+        android:title="@string/test"/>
+
+    <item
+        android:id="@+id/navigation_reward"
+        android:icon="@drawable/icons_reward"
+        android:title="@string/reward"/>
+    <item
+        android:id="@+id/navigation_game"
+        android:icon="@drawable/icons_game"
+        android:title="@string/game"/>
+
+</menu>
