@@ -3,6 +3,7 @@ package com.anhht.edu.views.Adapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
+import com.anhht.edu.views.game.GameFragment
 import com.anhht.edu.views.learn.LearnFragment
 
 class ViewPagerAdapter(fm: FragmentManager, behavior:Int) : FragmentStatePagerAdapter(fm, behavior) {
@@ -10,7 +11,9 @@ class ViewPagerAdapter(fm: FragmentManager, behavior:Int) : FragmentStatePagerAd
         return 4
     }
     override fun getItem(position: Int): Fragment {
-        return if (position == 0) LearnFragment()
-        else LearnFragment()
+        return when(position){
+            0 -> LearnFragment()
+            else -> GameFragment()
+        }
     }
 }

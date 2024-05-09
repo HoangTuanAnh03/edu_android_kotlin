@@ -25,12 +25,9 @@ class HomeActivity : AppCompatActivity() {
 
         viewPager.adapter = viewPagerAdaper
         viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-
             override fun onPageScrollStateChanged(state: Int) {
             }
-
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-
             }
             override fun onPageSelected(position: Int) {
                 when (position) {
@@ -69,7 +66,7 @@ class HomeActivity : AppCompatActivity() {
                         viewPager.currentItem = 3
                     }
                     else -> {
-                        viewPager.currentItem = 4
+                        viewPager.currentItem = 0
                     }
                 }
                 return true

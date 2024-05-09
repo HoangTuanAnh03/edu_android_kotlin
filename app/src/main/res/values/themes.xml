@@ -36,4 +36,10 @@
         <item name="sv_textSize">14sp</item>
         <item name="sv_animationType">Line</item>
     </style>
+
+    <style name="AnimationsForFlashCard">
+        <item name="android:windowEnterAnimation">@anim/zoom_in</item>
+        <item name="android:windowExitAnimation">@anim/zoom_out</item>
+
+    </style>
 </resources>

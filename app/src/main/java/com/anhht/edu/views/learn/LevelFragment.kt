@@ -32,23 +32,28 @@ class LevelFragment : Fragment() {
         rvMain = binding.levelRecycleView
         rvMain.layoutManager = LinearLayoutManager(context)
 
-
         //lay data tu viewmodel
+
         levelViewModel = LevelViewModel(LevelAPIService())
-        levelViewModel.getAllUsers().observe(viewLifecycleOwner) { userList ->
+        levelViewModel.getAllUsers(context as Context).observe(viewLifecycleOwner) { userList ->
             levelApdater = RVLevelAdapter(context as Context, userList, object : IClickLevelCard {
                 override fun onClickItemLevelCard(level: Level) {
-                    val bundle = Bundle()
+                    var bundle = Bundle()
                     bundle.putSerializable("level", level)
-                    val fmt: FragmentTransaction = activity?.supportFragmentManager?.beginTransaction()!!
+                    var fmt: FragmentTransaction = activity?.supportFragmentManager?.beginTransaction()!!
                     val topicFragment = TopicFragment()
                     topicFragment.arguments = bundle
-                    fmt.replace(R.id.learnLayoutF, topicFragment).commit()
+                    fmt.apply {
+                        replace(R.id.learnLayoutF, topicFragment, "topicF")
+                        setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        setReorderingAllowed(true)
+                        addToBackStack("topicF")
+                        activity?.supportFragmentManager!!.popBackStackImmediate()
+                        commit() }
                 }
             })
             rvMain.setAdapter(levelApdater)
         }
         return binding.root
     }
-
 }

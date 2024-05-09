@@ -1,5 +1,6 @@
 package com.anhht.edu.repository
 
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.anhht.edu.model.ResponseApi
@@ -13,9 +14,8 @@ import retrofit2.Response
 class LevelAPIService {
     private var levels: ArrayList<Level> = ArrayList<Level>()
     private val listLevels: MutableLiveData<List<Level>> = MutableLiveData<List<Level>>()
-    fun getAllLevel() : MutableLiveData<List<Level>> {
-
-        val retrofit = ServiceBuilder.buildService(LevelAPI::class.java)
+    fun getAllLevel(context: Context) : MutableLiveData<List<Level>> {
+        val retrofit = ServiceBuilder.buildService(context, LevelAPI::class.java)
         retrofit.getAll()!!.enqueue(
             object : Callback<ResponseApi<List<Level>>> {
                 override fun onResponse(
