@@ -4,15 +4,44 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".views.learn.LevelFragment">
-
+    <RelativeLayout
+        android:id="@+id/actionbarTopicF"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:layout_marginTop="5dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+        <ImageView
+            android:id="@+id/topicBack"
+            android:src="@drawable/ic_back_black"
+            android:layout_width="22dp"
+            android:layout_marginEnd="3dp"
+            android:layout_marginStart="10dp"
+            android:layout_centerVertical="true"
+            android:layout_height="wrap_content">
+        </ImageView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="Danh Sách Chủ Đề"
+            android:textSize="24dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/topicBack"
+            android:layout_height="wrap_content">
+        </TextView>
+    </RelativeLayout>
     <RelativeLayout
         android:id="@+id/levelTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:padding="3dp"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/actionbarTopicF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
@@ -22,7 +51,7 @@
             android:layout_height="wrap_content"
             android:text="English Vocabulary"
             android:textAlignment="center"
-            android:textSize="30sp"
+            android:textSize="30dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -50,7 +79,7 @@
                 android:layout_marginStart="3dp"
                 android:id="@+id/topicLevelDesc"
                 android:textStyle="bold"
-                android:textSize="15sp"
+                android:textSize="15dp"
                 android:text="Danh sách từ vựng Beginner[A1] bao gồm 32 bài học được phân loại theo chủ đề, độ khó và cách sử dụng theo CEFR"
                 android:layout_height="wrap_content">
             </TextView>
@@ -62,9 +91,9 @@
         android:id="@+id/levelRecycleView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="270dp"
         app:layout_constraintTop_toBottomOf="@+id/levelTitle"
-        tools:layout_editor_absoluteX="0dp">
+        >
 
     </androidx.recyclerview.widget.RecyclerView>
 
