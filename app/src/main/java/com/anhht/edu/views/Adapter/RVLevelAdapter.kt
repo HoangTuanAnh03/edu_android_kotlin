@@ -25,7 +25,7 @@ class RVLevelAdapter(var context: Context, private var list:List<Level>, private
     }
 
     override fun onBindViewHolder(holder: LevelViewHolder, position: Int) {
-        Picasso.with(context).load("https://imgur.com/"+list[position].levelName.split("thaidang")[1]).into(holder.img);
+        Picasso.get().load("https://imgur.com/"+list[position].levelName.split("thaidang")[1]).into(holder.img);
         holder.name.text = list[position].levelName.split("thaidang")[0]
         holder.progress.progress = list[position].process.toInt()
         holder.card.setOnClickListener(View.OnClickListener {

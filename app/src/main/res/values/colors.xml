@@ -6,7 +6,8 @@
     <color name="red">#FF0000</color>
     <color name="pink">#C13584</color>
     <color name="gray">#737373</color>
-
+    <color name="green">#81C784</color>
+    <color name="yellow">#FFF176</color>
 
     // step view
     <color name="stepview_line_done">@color/blue</color>
@@ -26,4 +27,5 @@
     <color name="teal_700">#FF018786</color>
     <color name="primary_color">#565cce</color>
     <color name="second_color">#8d92fa</color>
+    <color name="lavender">#8692f7</color>
 </resources>

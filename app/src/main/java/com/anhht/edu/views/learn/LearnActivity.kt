@@ -115,7 +115,7 @@ class LearnActivity : AppCompatActivity() {
         binding.btnChoose4.text = question.answerD
 
 
-        Picasso.with(this).load(question.words.photo.toString()).into(bindingPopupBinding.imagePopup);
+        Picasso.get().load(question.words.photo.toString()).into(bindingPopupBinding.imagePopup);
         bindingPopupBinding.endesc.text = question.words.endesc
         bindingPopupBinding.word.text = question.words.word
         bindingPopupBinding.mean.text = question.words.meaning

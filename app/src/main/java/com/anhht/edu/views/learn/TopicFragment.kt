@@ -38,7 +38,7 @@ class TopicFragment : Fragment() {
 
         var bundbleReceive = arguments
         var level = bundbleReceive?.get("level") as Level
-        Picasso.with(context).load("https://imgur.com/"+level.levelName.split("thaidang")[1]).into(binding.topicLevelImg)
+        Picasso.get().load("https://imgur.com/"+level.levelName.split("thaidang")[1]).into(binding.topicLevelImg)
         binding.topicLevelDesc.text = "Danh sách từ vựng "+ level.levelName.split("thaidang")[0] +" bao gồm "+level.numTopics+" bài học và "+ level.numWords + " từ vựng được phân loại theo chủ đề, độ khó và cách sử dụng theo CEFR."
         topicViewModel = TopicViewModel(TopicAPIService())
         topicViewModel.getTopicByLid(level.lid).observe(viewLifecycleOwner) { topic ->
