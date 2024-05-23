@@ -13,7 +13,6 @@ object ServiceBuilder {
     private val client = OkHttpClient.Builder()
         .connectTimeout(40000, TimeUnit.MILLISECONDS)
         .readTimeout(40000, TimeUnit.MILLISECONDS)
-//        .build()
 
     fun <T> buildService(service: Class<T>): T {
         val retrofit = Retrofit.Builder()
