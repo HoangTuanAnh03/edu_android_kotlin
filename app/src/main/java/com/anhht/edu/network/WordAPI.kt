@@ -12,4 +12,7 @@ interface WordAPI {
 
     @GET("words/getQuestionByTidTest")
     fun getWordsByTidTest(@Query("tid") tid:Int): Call<ResponseApi<List<Question>>>?
+
+    @GET("words/getTest")
+    fun getTest(): Call<ResponseApi<List<Question>>>?
 }

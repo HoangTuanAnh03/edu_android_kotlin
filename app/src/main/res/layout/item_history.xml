@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <androidx.cardview.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:backgroundTint="@color/white"
+        app:cardUseCompatPadding="true"
+        android:id="@+id/historyCard"
+        android:padding="2dp"
+        android:layout_marginBottom="1dp"
+        app:cardCornerRadius="10dp"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:id="@+id/historyItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp">
+
+            <ImageView
+                android:id="@+id/historyImage"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/wordle">
+
+            </ImageView>
+
+            <RelativeLayout
+                android:layout_centerVertical="true"
+                android:id="@+id/historyDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_toEndOf="@+id/historyImage">
+
+                <TextView
+                    android:id="@+id/appName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="3dp"
+                    android:text="DATLearn Gift"
+                    android:textColor="@color/gray"
+                    android:textSize="15dp"
+                    android:textStyle="bold">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/historyName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/appName"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginTop="3dp"
+                    android:text="Bút Thiên Long"
+                    android:textSize="20dp"
+                    android:textStyle="bold">
+
+                </TextView>
+
+                <RelativeLayout
+                    android:id="@+id/numberProduct"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/historyName"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginTop="2dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:text="Số Lượng: 1"
+                        android:id="@+id/quantity"
+                        android:textSize="15sp"
+                        android:layout_centerVertical="true"
+                        android:layout_height="wrap_content">
+                    </TextView>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_toEndOf="@+id/quantity"
+                        android:layout_marginStart="10dp"
+                        android:text="Giá: 100 dats"
+                        android:id="@+id/price"
+                        android:textSize="15sp"
+                        android:layout_centerVertical="true"
+                        android:layout_height="wrap_content">
+                    </TextView>
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/numberProduct"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginStart="3dp"
+                    android:text="Nơi nhận: Thanh Hóa"
+                    android:textSize="15sp">
+                </TextView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_below="@+id/address"
+                    android:id="@+id/date"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginStart="3dp"
+                    android:text="Ngày đổi: 22/22/2222"
+                    android:textSize="15sp"
+                    android:layout_height="wrap_content">
+                </TextView>
+            </RelativeLayout>
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>

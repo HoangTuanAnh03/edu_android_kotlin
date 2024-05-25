@@ -78,7 +78,6 @@ class LearnActivity : AppCompatActivity() {
                 getQuestion(0)
             }
         }
-
         var i = 1
         bindingPopupBinding.nextQuestion.setOnClickListener{
             isClickBtn = false

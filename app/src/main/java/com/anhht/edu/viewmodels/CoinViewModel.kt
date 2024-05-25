@@ -11,4 +11,8 @@ class CoinViewModel(val coinRepo : CoinAPIService
     fun postAnswer(answer:String, wid:Int): LiveData<ResponseApi<Int>> {
         return coinRepo.postAnswer(answer, wid)
     }
+
+    fun getUserInformation(): LiveData<ResponseApi<Map<String, String>>>{
+        return coinRepo.getUserInformation()
+    }
 }
