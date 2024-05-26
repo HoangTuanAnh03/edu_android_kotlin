@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:backgroundTint="@color/white"
+    app:cardUseCompatPadding="true"
+    android:id="@+id/resultTestCard"
+    android:padding="2dp"
+    android:layout_marginBottom="1dp"
+    app:cardCornerRadius="10dp"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:id="@+id/historyItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp">
+        <RelativeLayout
+            android:id="@+id/testImage"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/testScore"
+                android:layout_centerVertical="true"
+                app:trackColor="@color/gray"
+                tools:progress="60"
+                app:trackCornerRadius="20dp"
+                app:trackThickness="8dp"
+                app:indicatorSize="90dp"/>
+
+            <TextView
+                android:id="@+id/testScoreTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                tools:text="50%" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_centerVertical="true"
+            android:id="@+id/historyDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@+id/testImage">
+
+            <TextView
+                android:id="@+id/appName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:text="DATLearn Test"
+                android:textColor="@color/gray"
+                android:textSize="15sp"
+                android:textStyle="bold">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/testName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/appName"
+                android:layout_marginStart="3dp"
+                android:layout_marginTop="3dp"
+                android:text="Ngày Kiểm Tra: "
+                android:textSize="16sp"
+                android:textStyle="bold">
+            </TextView>
+
+            <RelativeLayout
+                android:id="@+id/numberProduct"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/testName"
+                android:layout_marginStart="3dp"
+                android:layout_marginTop="2dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="Số câu đúng: 1"
+                    android:id="@+id/testNumTrueAns"
+                    android:textSize="15sp"
+                    android:layout_centerVertical="true"
+                    android:layout_height="wrap_content">
+                </TextView>
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/testNumAns"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/numberProduct"
+                android:layout_marginTop="2dp"
+                android:layout_marginStart="3dp"
+                android:text="Số câu: 10"
+                android:textSize="15sp">
+            </TextView>
+        </RelativeLayout>
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

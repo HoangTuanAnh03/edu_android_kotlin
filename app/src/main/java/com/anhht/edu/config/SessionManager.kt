@@ -76,4 +76,10 @@ class SessionManager (context: Context) {
     fun fetchStateLogin(): String? {
         return prefs.getString(APP_STATE_LOGIN, "false")
     }
+
+    fun logout(){
+        val editor = prefs.edit()
+        editor.clear()
+        editor.apply()
+    }
 }

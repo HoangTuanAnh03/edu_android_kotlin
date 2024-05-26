@@ -13,8 +13,10 @@ import retrofit2.Response
 class WordAPIService {
     private var questions: ArrayList<Question> = ArrayList()
     private val listQuestion: MutableLiveData<List<Question>> = MutableLiveData<List<Question>>()
+    private val retrofit = ServiceBuilder.buildService(WordAPI::class.java)
+    private val responseTest: MutableLiveData<ResponseApi<List<Question>>> = MutableLiveData<ResponseApi<List<Question>>>()
     fun getQuestionByTid(tid:Int) : MutableLiveData<List<Question>> {
-        val retrofit = ServiceBuilder.buildService(WordAPI::class.java)
+        //val retrofit = ServiceBuilder.buildService(WordAPI::class.java)
         retrofit.getWordsByTid(tid)!!.enqueue(
             object : Callback<ResponseApi<List<Question>>> {
                 override fun onResponse(
@@ -36,7 +38,7 @@ class WordAPIService {
         return listQuestion
     }
     fun getQuestionByTidTest(tid:Int) : MutableLiveData<List<Question>> {
-        val retrofit = ServiceBuilder.buildService(WordAPI::class.java)
+        //val retrofit = ServiceBuilder.buildService(WordAPI::class.java)
         retrofit.getWordsByTidTest(tid)!!.enqueue(
             object : Callback<ResponseApi<List<Question>>> {
                 override fun onResponse(
@@ -55,5 +57,27 @@ class WordAPIService {
             }
         )
         return listQuestion
+    }
+
+    fun getTest() : MutableLiveData<ResponseApi<List<Question>>>{
+        //val retrofit = ServiceBuilder.buildService(WordAPI::class.java)
+        retrofit.getTest()!!.enqueue(
+            object : Callback<ResponseApi<List<Question>>> {
+                override fun onResponse(
+                    call: Call<ResponseApi<List<Question>>>,
+                    response: Response<ResponseApi<List<Question>>>
+                ) {
+                    var data = response.body()
+                    //if(data?.data != null){
+                        //questions = ArrayList(data.data)
+                    responseTest.value = data
+                    //}
+                }
+                override fun onFailure(call: Call<ResponseApi<List<Question>>>, t: Throwable) {
+                    Log.e("Word", t.toString())
+                }
+            }
+        )
+        return responseTest
     }
 }

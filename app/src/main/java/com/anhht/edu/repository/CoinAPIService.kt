@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import com.anhht.edu.model.ResponseApi
 import com.anhht.edu.model.data.Level
 import com.anhht.edu.model.data.TopicByLevel
+import com.anhht.edu.network.AuthApi
 import com.anhht.edu.network.CoinAPI
 import com.anhht.edu.network.LevelAPI
 import com.anhht.edu.network.ServiceBuilder
@@ -16,6 +17,8 @@ import retrofit2.Response
 class CoinAPIService {
     private var responseApiCoin : ResponseApi<Int> = ResponseApi<Int>(data = 0, message = "", status = "200")
     private val responseCoin: MutableLiveData<ResponseApi<Int>> = MutableLiveData<ResponseApi<Int>>()
+    private val information: MutableLiveData<ResponseApi<Map<String, String>>> = MutableLiveData<ResponseApi<Map<String, String>>>()
+
     fun postAnswer(answer:String, wid:Int) : MutableLiveData<ResponseApi<Int>>{
         val retrofit = ServiceBuilder.buildService(CoinAPI::class.java)
         retrofit.postAnswer(answer, wid)!!.enqueue(
@@ -35,5 +38,23 @@ class CoinAPIService {
             }
         )
         return responseCoin
+    }
+    fun getUserInformation() : MutableLiveData<ResponseApi<Map<String, String>>> {
+        val retrofit = ServiceBuilder.buildService(AuthApi::class.java)
+        retrofit.getUserInformation()!!.enqueue(
+            object : Callback<ResponseApi<Map<String, String>>> {
+                override fun onResponse(
+                    call: Call<ResponseApi<Map<String, String>>>,
+                    response: Response<ResponseApi<Map<String, String>>>
+                ) {
+                    val data = response.body()
+                    information.value = data
+                }
+                override fun onFailure(call: Call<ResponseApi<Map<String, String>>>, t: Throwable) {
+                    Log.e("information", t.message.toString())
+                }
+            }
+        )
+        return information
     }
 }

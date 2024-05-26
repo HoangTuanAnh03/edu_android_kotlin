@@ -32,8 +32,7 @@ interface AuthApi {
     @GET("forgetPassword/checkOtp")
     fun checkOtp(@Query("email") email: String, @Query("otp") otp: String): Call<ResponseApi<String>>
 
-
-
-
+    @GET("users/getUserInformation")
+    fun getUserInformation(): Call<ResponseApi<Map<String, String>>>?
 
 }

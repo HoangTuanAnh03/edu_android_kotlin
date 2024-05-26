@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".views.test.VocabTestActivity">
+    <RelativeLayout
+        android:id="@+id/actionbarOrderHistory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:layout_marginTop="5dp">
+        <ImageView
+            android:id="@+id/testBack"
+            android:src="@drawable/ic_back"
+            android:layout_width="22dp"
+            android:layout_marginEnd="3dp"
+            android:layout_marginStart="10dp"
+            android:layout_centerVertical="true"
+            android:layout_height="22dp">
+        </ImageView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="Bài Kiểm Tra"
+            android:textSize="24dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_height="wrap_content">
+        </TextView>
+    </RelativeLayout>
+    <LinearLayout
+        android:padding="16dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="Question 7/20"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_centerVertical="true"
+                android:id="@+id/question_indicator_textview"/>
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/icon_timer"
+                app:tint="@color/blue"
+                android:layout_marginEnd="4dp"
+                android:layout_toStartOf="@id/timer_indicator_textview"
+                android:layout_centerVertical="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="5:46"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/blue"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:id="@+id/timer_indicator_textview"/>
+        </RelativeLayout>
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="8dp"
+            tools:progress="40"
+            android:id="@+id/question_progress_indicator"/>
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginVertical="8dp"
+            android:elevation="4dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    tools:text="What is android OS?"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:padding="8dp"
+                    android:background="@drawable/rounded_corner"
+                    android:backgroundTint="@color/blue"
+                    android:textColor="@color/white"
+                    android:gravity="center"
+                    android:layout_marginVertical="8dp"
+                    android:id="@+id/question_textview"/>
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="4dp"
+                    android:background="@drawable/background_btn_choose"
+                    tools:text="Ans A"
+                    android:textColor="@color/black"
+                    android:paddingVertical="12dp"
+                    android:onClick="ClickChoose"
+                    android:textSize="18sp"
+                    android:id="@+id/btn0" />
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="match_parent"
+                    android:background="@drawable/background_btn_choose"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="4dp"
+                    android:onClick="ClickChoose"
+                    tools:text="Ans B"
+                    android:textColor="@color/black"
+                    android:paddingVertical="12dp"
+                    android:textSize="18sp"
+                    android:id="@+id/btn1" />
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="match_parent"
+                    android:background="@drawable/background_btn_choose"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="4dp"
+                    android:onClick="ClickChoose"
+                    tools:text="Ans C"
+                    android:textColor="@color/black"
+                    android:paddingVertical="12dp"
+                    android:textSize="18sp"
+                    android:id="@+id/btn2" />
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="ClickChoose"
+                    android:layout_marginVertical="4dp"
+                    android:background="@drawable/background_btn_choose"
+                    tools:text="Ans D"
+                    android:textColor="@color/black"
+                    android:paddingVertical="12dp"
+                    android:textSize="18sp"
+                    android:id="@+id/btn3" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_height="wrap_content">
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="4dp"
+                        android:layout_alignParentStart="true"
+                        android:text="Quay lại"
+                        android:textColor="@color/black"
+                        android:backgroundTint="@color/stepview_line_next"
+                        android:paddingVertical="12dp"
+                        android:textSize="17sp"
+                        android:paddingHorizontal="30dp"
+                        android:id="@+id/pre_btn" />
+                    <Button
+                        android:layout_marginStart="65dp"
+                        android:layout_toEndOf="@+id/pre_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginVertical="4dp"
+                        android:text="Tiếp Theo"
+                        android:paddingVertical="12dp"
+                        android:gravity="center"
+                        android:textSize="17sp"
+                        android:paddingHorizontal="30dp"
+                        android:id="@+id/next_btn" />
+                </RelativeLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
+
+
+
+
+</LinearLayout>

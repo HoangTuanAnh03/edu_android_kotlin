@@ -19,5 +19,9 @@
         android:id="@+id/navigation_game"
         android:icon="@drawable/icons_game"
         android:title="@string/game"/>
+    <item
+        android:id="@+id/navigation_profile"
+        android:icon="@drawable/ic_profile"
+        android:title="Profile"/>
 
 </menu>

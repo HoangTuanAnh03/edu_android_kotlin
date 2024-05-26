@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".views.test.TestFragment">
+    <RelativeLayout
+        android:id="@+id/actionbarGameF"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@color/white">
+        <TextView
+            android:layout_marginTop="5dp"
+            android:layout_width="wrap_content"
+            android:text="Kiểm Tra"
+            android:textSize="24dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="5dp"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_height="wrap_content">
+        </TextView>
+    </RelativeLayout>
+    <ImageView
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:src="@drawable/main_image" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginStart="18dp"
+        android:background="@drawable/rounded_corner"
+        android:backgroundTint="@color/blue"
+        android:padding="8dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Quizzy App"
+            android:gravity="center"
+            android:textSize="34sp"
+            android:letterSpacing="0.1"
+            android:textColor="@color/white"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Làm bài kiểm tra để ôn tập những từ đã học"
+            android:gravity="center"
+            android:textSize="15sp"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/white"
+            android:textStyle="bold"/>
+    </LinearLayout>
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="match_parent"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="50dp"
+        android:id="@+id/testStart"
+        android:text="Bắt Đầu Kiểm Tra"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:textSize="23sp"
+        android:backgroundTint="@color/primary_color"
+        android:layout_marginStart="50dp"
+        android:layout_height="wrap_content">
+
+    </androidx.appcompat.widget.AppCompatButton>
+
+</LinearLayout>

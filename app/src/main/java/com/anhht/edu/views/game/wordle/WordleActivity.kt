@@ -3,6 +3,8 @@ package com.anhht.edu.views.game.wordle
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.Handler
 import android.util.AttributeSet
@@ -15,6 +17,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import com.anhht.edu.R
 import com.anhht.edu.databinding.ActivityLearnBinding
@@ -32,12 +35,21 @@ class WordleActivity : AppCompatActivity() {
     private var countWins = 0
     private lateinit var gameCore: GameCore
     private lateinit var binding: ActivityWordleBinding
-    private fun popUpShow(word: String){
+    @SuppressLint("ResourceAsColor")
+    private fun popUpShow(word: String, noti: String){
         val dialogBinding = layoutInflater.inflate(R.layout.popup_wordle, null, false);
+//        if(noti == "YOU LOSE"){
+//            dialogBinding.findViewById<CardView>(R.id.txtWord).setCardBackgroundColor(R.color.red)
+//        }else{
+//            dialogBinding.findViewById<CardView>(R.id.txtWord).setCardBackgroundColor(R.color.blue)
+//        }
         val txtWord = dialogBinding.findViewById<TextView>(R.id.txtWordDesc)
         txtWord.text = word
+        val txtnoti = dialogBinding.findViewById<TextView>(R.id.textView2)
+        txtnoti.text = noti
         val myDialog = Dialog(this);
         myDialog.setContentView(dialogBinding)
+        myDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         myDialog.setCancelable(true)
         myDialog.show()
     }
@@ -106,14 +118,20 @@ class WordleActivity : AppCompatActivity() {
                 if (gameCore.getResult()) {
                     countWins++
                     Handler().postDelayed({
-                        popUpShow(gameCore.getFinalWord())
+                        popUpShow(gameCore.getFinalWord(), "CONGRATULATION")
                         gameCore.startOver()
                         newRound()
                     }, 1600)
-                }
+                }else if(gameCore.isPouse()){
+                    Handler().postDelayed({
+                        popUpShow(gameCore.getFinalWord(), "YOU LOSE")
+                        gameCore.startOver()
+                        newRound()
+                    }, 1600)}
             }else{
                 Toast.makeText(applicationContext, "Từ không tồn tại trong hệ thống!!!", Toast.LENGTH_SHORT).show();
             }
+
         }
 
         val btnErase = findViewById<Button>(R.id.buttonErase)

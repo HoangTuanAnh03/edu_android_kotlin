@@ -10,9 +10,11 @@
         android:id="@+id/navView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:labelVisibilityMode="unlabeled"
         android:layout_alignParentBottom="true"
         app:itemTextColor="@color/custom_color_nav"
         app:itemIconTint="@color/custom_color_nav"
+        android:backgroundTint="@color/white"
         android:background="#2cc5cd"
         app:menu="@menu/bottom_nav_menu"/>
 
