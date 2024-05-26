@@ -44,6 +44,7 @@ class LearnActivity : AppCompatActivity() , Runnable{
     private var btn_click: Button?=null
     private var valueChoose: String = ""
     private var mDialog: Dialog?=null
+    private var coinAnimation = false
     private var mediaPlayer: MediaPlayer?=null
     private var wid:Int = 0
 
@@ -71,6 +72,7 @@ class LearnActivity : AppCompatActivity() , Runnable{
 
                         //Snackbar.make(this,"Bạn đã nhận được " + d.data + " DATs", Snackbar.ANIMATION_MODE_FADE )
                         Toast.makeText(applicationContext, "Bạn đã nhận được " + d.data + " DATs", Toast.LENGTH_LONG).show()
+                        coinAnimation = true
                     }else{
                         Toast.makeText(applicationContext, d.message, Toast.LENGTH_LONG).show()
                     }
@@ -94,11 +96,15 @@ class LearnActivity : AppCompatActivity() , Runnable{
         var i = 1
         bindingPopupBinding.nextQuestion.setOnClickListener{
             isClickBtn = false
-            it?.springAnimate(stiffness = 500f)
-            coinMaxCount = 10
-            coinCount = 0
-            handler.removeCallbacks(this)
-            handler.post(this)
+            if(coinAnimation){
+                it?.springAnimate(stiffness = 500f)
+                coinMaxCount = 10
+                coinCount = 0
+                handler.removeCallbacks(this)
+                handler.post(this)
+                coinAnimation = false
+            }
+
             resetChoose()
             data.let{
                 if(i < it?.size!!){
