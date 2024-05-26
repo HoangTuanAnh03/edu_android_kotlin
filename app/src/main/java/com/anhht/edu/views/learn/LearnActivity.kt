@@ -4,6 +4,8 @@ import android.app.Dialog
 import android.media.AudioManager
 import android.media.MediaPlayer
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
@@ -13,12 +15,16 @@ import androidx.appcompat.app.AppCompatActivity
 import com.anhht.edu.R
 import com.anhht.edu.databinding.ActivityLearnBinding
 import com.anhht.edu.databinding.PopupFlashcardBinding
+import com.anhht.edu.ktx.randomArcAnimation
+import com.anhht.edu.ktx.springAnimate
+import com.anhht.edu.ktx.toPx
 import com.anhht.edu.model.data.Question
 import com.anhht.edu.model.data.Topic
 import com.anhht.edu.repository.CoinAPIService
 import com.anhht.edu.repository.WordAPIService
 import com.anhht.edu.viewmodels.CoinViewModel
 import com.anhht.edu.viewmodels.WordViewModel
+import com.anhht.edu.views.learn.Animation.Coin
 import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.Dispatchers
@@ -26,8 +32,9 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.io.IOException
 
-class LearnActivity : AppCompatActivity() {
+class LearnActivity : AppCompatActivity() , Runnable{
     private lateinit var binding: ActivityLearnBinding
+
     private lateinit var bindingPopupBinding: PopupFlashcardBinding
     private lateinit var wordViewModel: WordViewModel
     private lateinit var coinViewModel: CoinViewModel
@@ -40,6 +47,10 @@ class LearnActivity : AppCompatActivity() {
     private var mediaPlayer: MediaPlayer?=null
     private var wid:Int = 0
 
+    //animation
+    private val handler = Handler(Looper.getMainLooper())
+    private var coinMaxCount = 0
+    private var coinCount = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLearnBinding.inflate(layoutInflater)
@@ -52,21 +63,23 @@ class LearnActivity : AppCompatActivity() {
 
         binding.btnNext.setOnClickListener{
             if(isClickBtn){
-                val width = (resources.displayMetrics.widthPixels * 0.95).toInt()
-                mDialog!!.setContentView(bindingPopupBinding.root)
-                mDialog!!.window?.setLayout(width, WindowManager.LayoutParams.WRAP_CONTENT)
-                mDialog!!.window?.setWindowAnimations(R.style.AnimationsForFlashCard)
-                mDialog!!.show()
+
                 coinViewModel = CoinViewModel(CoinAPIService())
                 coinViewModel.postAnswer(valueChoose, wid).observe(this@LearnActivity){d->
                     Log.e("data D", d.toString())
                     if(d.data != 0){
+
                         //Snackbar.make(this,"Bạn đã nhận được " + d.data + " DATs", Snackbar.ANIMATION_MODE_FADE )
                         Toast.makeText(applicationContext, "Bạn đã nhận được " + d.data + " DATs", Toast.LENGTH_LONG).show()
                     }else{
                         Toast.makeText(applicationContext, d.message, Toast.LENGTH_LONG).show()
                     }
                 }
+                val width = (resources.displayMetrics.widthPixels * 0.95).toInt()
+                mDialog!!.setContentView(bindingPopupBinding.root)
+                mDialog!!.window?.setLayout(width, WindowManager.LayoutParams.WRAP_CONTENT)
+                mDialog!!.window?.setWindowAnimations(R.style.AnimationsForFlashCard)
+                mDialog!!.show()
             }
         }
 
@@ -81,6 +94,11 @@ class LearnActivity : AppCompatActivity() {
         var i = 1
         bindingPopupBinding.nextQuestion.setOnClickListener{
             isClickBtn = false
+            it?.springAnimate(stiffness = 500f)
+            coinMaxCount = 10
+            coinCount = 0
+            handler.removeCallbacks(this)
+            handler.post(this)
             resetChoose()
             data.let{
                 if(i < it?.size!!){
@@ -100,13 +118,32 @@ class LearnActivity : AppCompatActivity() {
             finish()
         }
     }
+    override fun run() {
+        val edgeHeight by lazy { (binding.parentView.height - 100.toPx + 150.toPx) / 2f }
+        val edgeWidth by lazy { (binding.parentView.width + 24.toPx) / 2f }
+        if (coinCount < coinMaxCount) {
+            val coin = Coin.addTo(binding.parentView)
+            coin.randomArcAnimation(0f, -edgeWidth, 0f, -edgeHeight) {
+                binding.parentView.removeView(coin)
+            }
+            handler.postDelayed(this, 50)
+            coinCount++
+        } else handler.removeCallbacks(this)
+    }
+
+    override fun onPause() {
+        handler.removeCallbacks(this)
+        super.onPause()
+    }
     private fun getQuestion(i:Int){
-        var rnds = (0..3).random()
+        val rnds = (0..3).random()
         val question = data?.get(i)
         wid = question?.words?.wid!!
-        if(rnds == 1) binding.textQuestion.text = question.words.endesc
-        else if(rnds == 2) binding.textQuestion.text = "Từ nào có nghĩa: " + question.words.meaning + "\n Phiên âm /" + question.words.pronun +"/"
-        else binding.textQuestion.text = question.words.viedesc
+        when (rnds) {
+            1 -> binding.textQuestion.text = question.words.endesc
+            2 -> binding.textQuestion.text = String.format("Từ nào có nghĩa: %s\\n Phiên âm /%s/", question.words.meaning, question.words.pronun)
+            else -> binding.textQuestion.text = question.words.viedesc
+        }
 
         binding.btnChoose1.text = question.answerA
         binding.btnChoose2.text = question.answerB
@@ -119,7 +156,7 @@ class LearnActivity : AppCompatActivity() {
         bindingPopupBinding.word.text = question.words.word
         bindingPopupBinding.mean.text = question.words.meaning
         bindingPopupBinding.viedesc.text = question.words.viedesc
-        bindingPopupBinding.pronun.text = "/" + question.words.pronun + "/"
+        bindingPopupBinding.pronun.text = String.format("/%s/", question.words.pronun)
         bindingPopupBinding.type.text = question.words.entype
         bindingPopupBinding.speek.setOnClickListener{
             question.words.voice.let { it1 -> playAudioFromUrl(it1) }

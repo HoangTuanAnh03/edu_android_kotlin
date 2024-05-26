@@ -78,5 +78,6 @@ dependencies {
     //load anh
     implementation ("com.squareup.picasso:picasso:2.71828")
 
-
+    //dinamic
+    androidTestImplementation("androidx.dynamicanimation:dynamicanimation:1.0.0")
 }
