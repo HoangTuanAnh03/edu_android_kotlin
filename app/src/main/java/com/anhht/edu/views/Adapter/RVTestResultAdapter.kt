@@ -1,12 +1,14 @@
 package com.anhht.edu.views.Adapter
 
 import android.content.Context
+import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.anhht.edu.R
+
 
 class RVTestResultAdapter (var context: Context, var userAns: List<String>, var trueAns: List<String>, var question: List<String>) : RecyclerView.Adapter<RVTestResultAdapter.TestResultViewHolder>(){
 
@@ -18,6 +20,11 @@ class RVTestResultAdapter (var context: Context, var userAns: List<String>, var 
         holder.resultIndex.text = String.format("%s. ", position + 1)
         holder.resultTrueAns.text = String.format("Đáp án đúng: %s", trueAns[position])
         holder.resultUserAns.text = String.format("Đáp án của bạn: %s", userAns[position])
+        if(trueAns[position] != userAns[position]){
+            holder.resultUserAns.paintFlags = (holder.resultUserAns.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG)
+        }else{
+            holder.resultUserAns.paintFlags = (holder.resultUserAns.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG)
+        }
         holder.questionDetail.text = String.format("%s. ", question[position])
     }
 

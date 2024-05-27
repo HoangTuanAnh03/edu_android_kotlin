@@ -26,6 +26,30 @@
             android:layout_height="wrap_content">
         </TextView>
     </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/rewardMainTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/actionbarReward"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginEnd="35dp"
+        android:background="@drawable/rounded_corner"
+        android:backgroundTint="@color/blue"
+        android:padding="8dp"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="DAT REWARDS"
+            android:gravity="center"
+            android:textSize="24sp"
+            android:letterSpacing="0.1"
+            android:textColor="@color/white"
+            android:textStyle="bold"/>
+    </LinearLayout>
     <android.widget.SearchView
         android:layout_marginHorizontal="20dp"
         android:id="@+id/searchProduct"
@@ -38,7 +62,7 @@
         android:queryBackground="@android:color/transparent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/actionbarReward"
+        app:layout_constraintTop_toBottomOf="@+id/rewardMainTitle"
         >
     </android.widget.SearchView>
     <androidx.recyclerview.widget.RecyclerView
