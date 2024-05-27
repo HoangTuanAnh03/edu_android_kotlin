@@ -4,6 +4,7 @@ import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,8 +17,6 @@ import com.anhht.edu.views.Profile.orderhistory.OrderHistoryActivity
 import com.anhht.edu.views.Profile.testhistory.TestHistoryActivity
 import com.anhht.edu.views.SignInActivity
 import com.squareup.picasso.Picasso
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 
 class ProfileFragment() : Fragment() {
@@ -29,6 +28,13 @@ class ProfileFragment() : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
+        val sessionManager = SessionManager(requireContext())
+
+        if(sessionManager.fetchUserName() != null){
+            binding.profileEmail.text = sessionManager.fetchUserEmailProfile()
+            binding.profileName.text = sessionManager.fetchUserName()
+            Picasso.get().load("https://ui-avatars.com/api/?format=png&name="+sessionManager.fetchUserName()).into(binding.profileImage)
+        }
         binding.cardOrderHistory.setOnClickListener{
             var intent = Intent(requireContext(), OrderHistoryActivity::class.java)
             activity?.startActivity(intent)
@@ -52,20 +58,14 @@ class ProfileFragment() : Fragment() {
         binding = FragmentProfileBinding.inflate(layoutInflater)
         coinViewModel = CoinViewModel(CoinAPIService())
         val sessionManager = SessionManager(requireContext())
-        var check = false
-        if(sessionManager.fetchUserName() != null){
-            binding.profileEmail.text = sessionManager.fetchUserEmailProfile()
-            binding.profileName.text = sessionManager.fetchUserName()
-            check = true
-        }
         activity?.let {
             coinViewModel.getUserInformation().observe(it){ d->
                 if(d != null){
-                    if(!check){
+                    if(sessionManager.fetchUserName() == null){
                         binding.profileEmail.text = d.data["email"]
                         binding.profileName.text = d.data["name"]
+                        Picasso.get().load("https://ui-avatars.com/api/?format=png&name="+d.data["name"]).into(binding.profileImage)
                     }
-                    Picasso.get().load("https://ui-avatars.com/api/?format=png&name="+d.data["name"]).into(binding.profileImage)
                     val progress = d.data["progress"]
                     val total = progress!!.split("/")[1]
                     val num = progress.split("/")[0]
@@ -98,7 +98,18 @@ class ProfileFragment() : Fragment() {
     }
     private fun startCountAnimation(end: Int, total: Int) {
         val animator = ValueAnimator.ofInt(0, end)
-        animator.setDuration((40000/end).toLong())
+        var duration = 0
+        if(end > 5000){
+            duration = 150000/end
+        }
+        else if(end > 500){
+            duration = 80000/end
+        }else if(end > 50){
+            duration = 40000/end
+        }else{
+            duration = 10000/end
+        }
+        animator.setDuration(duration.toLong())
         animator.addUpdateListener { animation -> binding.progress.text = String.format("%s/%s", animation.animatedValue.toString(), total) }
         animator.start()
     }

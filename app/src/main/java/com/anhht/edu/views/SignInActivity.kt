@@ -6,6 +6,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Html
+import android.util.Log
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
@@ -105,13 +106,8 @@ class SignInActivity : AppCompatActivity() {
                             sessionManager.saveAuthAccessToken(resultSignIn.data.tokens.accessToken)
                             sessionManager.saveAuthRefreshToken(resultSignIn.data.tokens.refreshToken)
                             sessionManager.saveStateLogin("true")
-                            val coinViewModel = CoinViewModel(CoinAPIService())
-                            coinViewModel.getUserInformation().observe(this){ d->
-                                if(d != null){
-                                    sessionManager.saveUserName(d.data["name"].toString())
-                                    sessionManager.saveUserEmailProfile(d.data["email"].toString())
-                                }
-                            }
+
+
                             if (binding.switchRemember.isChecked) {
                                 sessionManager.saveEmail(binding.email.editText!!.text.toString())
                                 sessionManager.savePassWord(binding.password.editText!!.text.toString())
