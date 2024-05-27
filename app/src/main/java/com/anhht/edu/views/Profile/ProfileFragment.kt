@@ -1,5 +1,7 @@
 package com.anhht.edu.views.Profile
 
+import android.animation.ValueAnimator
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -14,8 +16,8 @@ import com.anhht.edu.viewmodels.CoinViewModel
 import com.anhht.edu.views.Profile.orderhistory.OrderHistoryActivity
 import com.anhht.edu.views.Profile.testhistory.TestHistoryActivity
 import com.anhht.edu.views.SignInActivity
-import com.anhht.edu.views.learn.LearnActivity
 import com.squareup.picasso.Picasso
+
 
 class ProfileFragment() : Fragment() {
     lateinit var binding: FragmentProfileBinding
@@ -26,6 +28,13 @@ class ProfileFragment() : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
+        val sessionManager = SessionManager(requireContext())
+
+        if(sessionManager.fetchUserName() != null){
+            binding.profileEmail.text = sessionManager.fetchUserEmailProfile()
+            binding.profileName.text = sessionManager.fetchUserName()
+            Picasso.get().load("https://ui-avatars.com/api/?format=png&name="+sessionManager.fetchUserName()).into(binding.profileImage)
+        }
         binding.cardOrderHistory.setOnClickListener{
             var intent = Intent(requireContext(), OrderHistoryActivity::class.java)
             activity?.startActivity(intent)
@@ -48,17 +57,61 @@ class ProfileFragment() : Fragment() {
         super.onCreate(savedInstanceState)
         binding = FragmentProfileBinding.inflate(layoutInflater)
         coinViewModel = CoinViewModel(CoinAPIService())
+        val sessionManager = SessionManager(requireContext())
         activity?.let {
             coinViewModel.getUserInformation().observe(it){ d->
                 if(d != null){
-                    binding.profileEmail.text = d.data["email"]
-                    binding.profileName.text = d.data["name"]
-                    binding.progress.text = d.data["progress"]
-                    binding.coin.text = d.data["coin"]
-                    Picasso.get().load("https://ui-avatars.com/api/?format=png&name="+d.data["name"]).into(binding.profileImage)
+                    if(sessionManager.fetchUserName() == null){
+                        binding.profileEmail.text = d.data["email"]
+                        binding.profileName.text = d.data["name"]
+                        Picasso.get().load("https://ui-avatars.com/api/?format=png&name="+d.data["name"]).into(binding.profileImage)
+                    }
+                    val progress = d.data["progress"]
+                    val total = progress!!.split("/")[1]
+                    val num = progress.split("/")[0]
+                    val coin = d.data["coin"]
+                    val numCoin = coin!!.split(" ")[0]
+                    startCoinAnimation(numCoin.toInt())
+                    startCountAnimation(num.toInt(), total.toInt())
+
                 }
             }
         }
 
     }
+    private fun startCoinAnimation(end: Int){
+        val coinAnimator = ValueAnimator.ofInt(0, end)
+        var duration = 0
+        if(end > 5000){
+            duration = 8800000/end
+        }
+        else if(end > 1000){
+            duration = 8400000/end
+        }else if(end > 500){
+            duration = 1300000/end
+        }else{
+            duration = 100000/end
+        }
+        coinAnimator.setDuration(duration.toLong())
+        coinAnimator.addUpdateListener { anim -> binding.coin.text = String.format("%s dats", anim.animatedValue.toString()) }
+        coinAnimator.start()
+    }
+    private fun startCountAnimation(end: Int, total: Int) {
+        val animator = ValueAnimator.ofInt(0, end)
+        var duration = 0
+        if(end > 5000){
+            duration = 150000/end
+        }
+        else if(end > 500){
+            duration = 80000/end
+        }else if(end > 50){
+            duration = 40000/end
+        }else{
+            duration = 10000/end
+        }
+        animator.setDuration(duration.toLong())
+        animator.addUpdateListener { animation -> binding.progress.text = String.format("%s/%s", animation.animatedValue.toString(), total) }
+        animator.start()
+    }
+
 }

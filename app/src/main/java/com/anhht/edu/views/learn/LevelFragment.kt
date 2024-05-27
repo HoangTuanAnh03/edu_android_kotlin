@@ -2,6 +2,7 @@ package com.anhht.edu.views.learn
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,9 +12,12 @@ import com.anhht.edu.views.Adapter.RVLevelAdapter.IClickLevelCard
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.anhht.edu.R
+import com.anhht.edu.config.SessionManager
 import com.anhht.edu.databinding.FragmentLevelBinding
 import com.anhht.edu.model.data.Level
+import com.anhht.edu.repository.CoinAPIService
 import com.anhht.edu.repository.LevelAPIService
+import com.anhht.edu.viewmodels.CoinViewModel
 import com.anhht.edu.viewmodels.LevelViewModel
 import com.anhht.edu.views.Adapter.RVLevelAdapter
 
@@ -22,6 +26,7 @@ class LevelFragment : Fragment() {
     lateinit var rvMain: RecyclerView
     lateinit var levelApdater: RVLevelAdapter
     lateinit var levelViewModel:LevelViewModel
+    private lateinit var coinViewModel: CoinViewModel
 
     private lateinit var binding: FragmentLevelBinding
     override fun onCreateView(
@@ -53,6 +58,14 @@ class LevelFragment : Fragment() {
                 }
             })
             rvMain.setAdapter(levelApdater)
+        }
+        val sessionManager = SessionManager(requireContext())
+        coinViewModel = CoinViewModel(CoinAPIService())
+        coinViewModel.getUserInformation().observe(viewLifecycleOwner){d->
+            if(d != null){
+                sessionManager.saveUserName(d.data["name"].toString())
+                sessionManager.saveUserEmailProfile(d.data["email"].toString())
+            }
         }
         return binding.root
     }

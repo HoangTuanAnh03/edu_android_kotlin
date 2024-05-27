@@ -14,8 +14,28 @@ class SessionManager (context: Context) {
         const val USER_PASSWORD = "user_password"
         const val APP_REMEMBER_PASSWORD = "app_remember_password"
         const val APP_STATE_LOGIN = "app_state_login"
+        const val USER_NAME = "user_name"
+        const val USER_EMAIL_PROFILE = "user_email_profile"
+    }
+    fun saveUserName(name: String){
+        val editor = prefs.edit()
+        editor.putString(USER_NAME, name)
+        editor.apply()
     }
 
+    fun fetchUserName() : String?{
+        return prefs.getString(USER_NAME, null)
+    }
+
+    fun saveUserEmailProfile(email: String){
+        val editor = prefs.edit()
+        editor.putString(USER_EMAIL_PROFILE, email)
+        editor.apply()
+    }
+
+    fun fetchUserEmailProfile() : String?{
+        return prefs.getString(USER_EMAIL_PROFILE, null)
+    }
     fun saveAuthAccessToken(token: String) {
         val editor = prefs.edit()
         editor.putString(USER_ACCESS_TOKEN, token)

@@ -6,6 +6,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Html
+import android.util.Log
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
@@ -17,8 +18,10 @@ import com.anhht.edu.model.request.LoginRequest
 import com.anhht.edu.databinding.ActivitySignInBinding
 import com.anhht.edu.model.request.RegisterRequest
 import com.anhht.edu.repository.AuthApiService
+import com.anhht.edu.repository.CoinAPIService
 import com.anhht.edu.utils.ValidateDataUtil
 import com.anhht.edu.utils.setProgressDialog
+import com.anhht.edu.viewmodels.CoinViewModel
 import com.anhht.edu.views.forgetpassword.ForgetPasswordActivity
 import com.anhht.edu.views.signup.SignUpActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -27,6 +30,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.squareup.picasso.Picasso
 
 
 class SignInActivity : AppCompatActivity() {
@@ -102,6 +106,7 @@ class SignInActivity : AppCompatActivity() {
                             sessionManager.saveAuthAccessToken(resultSignIn.data.tokens.accessToken)
                             sessionManager.saveAuthRefreshToken(resultSignIn.data.tokens.refreshToken)
                             sessionManager.saveStateLogin("true")
+
 
                             if (binding.switchRemember.isChecked) {
                                 sessionManager.saveEmail(binding.email.editText!!.text.toString())
