@@ -41,7 +41,7 @@ class TopicFragment : Fragment() {
         Picasso.get().load("https://imgur.com/"+level.levelName.split("thaidang")[1]).into(binding.topicLevelImg)
         binding.topicLevelDesc.text = "Danh sách từ vựng "+ level.levelName.split("thaidang")[0] +" bao gồm "+level.numTopics+" bài học và "+ level.numWords + " từ vựng được phân loại theo chủ đề, độ khó và cách sử dụng theo CEFR."
         topicViewModel = TopicViewModel(TopicAPIService())
-        topicViewModel.getTopicByLid(level.lid).observe(viewLifecycleOwner) { topic ->
+        topicViewModel.getTopicByLid(context as Context, level.lid).observe(viewLifecycleOwner) { topic ->
             topicApdater = RVTopicAdapter(context as Context, topic, object : RVTopicAdapter.IClickTopicCard {
                 override fun onClickItemTopicCard(topic: Topic) {
                     var intent = Intent(requireContext(), LearnActivity::class.java)

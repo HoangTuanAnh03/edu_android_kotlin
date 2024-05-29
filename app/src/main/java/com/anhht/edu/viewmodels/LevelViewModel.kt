@@ -12,4 +12,8 @@ class LevelViewModel(
     fun getAllUsers(context : Context): LiveData<List<Level>> {
         return levelRepo.getAllLevel(context)
     }
+
+    override fun onCleared() {
+        super.onCleared()
+    }
 }

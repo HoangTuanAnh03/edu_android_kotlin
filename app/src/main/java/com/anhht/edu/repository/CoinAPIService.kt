@@ -2,6 +2,7 @@ package com.anhht.edu.repository
 
 import android.content.Context
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import com.anhht.edu.model.ResponseApi
 import com.anhht.edu.model.data.Level
@@ -19,7 +20,7 @@ class CoinAPIService {
     private val responseCoin: MutableLiveData<ResponseApi<Int>> = MutableLiveData<ResponseApi<Int>>()
     private val information: MutableLiveData<ResponseApi<Map<String, String>>> = MutableLiveData<ResponseApi<Map<String, String>>>()
 
-    fun postAnswer(answer:String, wid:Int) : MutableLiveData<ResponseApi<Int>>{
+    fun postAnswer(context: Context, answer:String, wid:Int) : MutableLiveData<ResponseApi<Int>>{
         val retrofit = ServiceBuilder.buildService(CoinAPI::class.java)
         retrofit.postAnswer(answer, wid)!!.enqueue(
             object : Callback<ResponseApi<Int>> {
@@ -33,13 +34,14 @@ class CoinAPIService {
                     responseCoin.value = responseApiCoin
                 }
                 override fun onFailure(call: Call<ResponseApi<Int>>, t: Throwable) {
+//                    Toast.makeText(context, t.message.toString(), Toast.LENGTH_SHORT).show()
                     Log.e("CoinAPI", t.message.toString())
                 }
             }
         )
         return responseCoin
     }
-    fun getUserInformation() : MutableLiveData<ResponseApi<Map<String, String>>> {
+    fun getUserInformation(context: Context) : MutableLiveData<ResponseApi<Map<String, String>>> {
         val retrofit = ServiceBuilder.buildService(AuthApi::class.java)
         retrofit.getUserInformation()!!.enqueue(
             object : Callback<ResponseApi<Map<String, String>>> {
@@ -48,9 +50,11 @@ class CoinAPIService {
                     response: Response<ResponseApi<Map<String, String>>>
                 ) {
                     val data = response.body()
+                    Log.e("data",data.toString())
                     information.value = data
                 }
                 override fun onFailure(call: Call<ResponseApi<Map<String, String>>>, t: Throwable) {
+//                    Toast.makeText(context, t.message.toString(), Toast.LENGTH_SHORT).show()
                     Log.e("information", t.message.toString())
                 }
             }

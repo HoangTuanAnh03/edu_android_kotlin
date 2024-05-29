@@ -2,6 +2,7 @@ package com.anhht.edu.repository
 
 import android.content.Context
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import com.anhht.edu.model.ResponseApi
 import com.anhht.edu.model.data.Level
@@ -32,6 +33,7 @@ class ProductAPIService {
                     }
                 }
                 override fun onFailure(call: Call<ResponseApi<List<Product>>>, t: Throwable) {
+//                    Toast.makeText(context, t.message.toString(), Toast.LENGTH_SHORT).show()
                     Log.e("t", "l", t)
                 }
             }

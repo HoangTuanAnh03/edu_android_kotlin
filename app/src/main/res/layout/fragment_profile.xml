@@ -51,7 +51,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="Thai Dang"
+                        android:text="DAT LEARN"
                         android:textColor="#ffffff"
                         android:textSize="20dp"
                         app:layout_constraintEnd_toEndOf="@+id/cardView"
@@ -61,7 +61,7 @@
                         android:id="@+id/profile_email"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="thaidangfa@gmail.com"
+                        android:text="DAT LEARN@gmail.com"
                         android:textColor="#ffffff"
                         android:textSize="17dp"
                         android:layout_marginTop="5dp"
@@ -117,7 +117,7 @@
                                         android:id="@+id/progress"
                                         android:textStyle="bold"
                                         android:textSize="16dp"
-                                        android:text="1000/8777"
+                                        android:text="0/0"
                                         android:layout_height="wrap_content">
                                     </TextView>
                                 </RelativeLayout>
@@ -162,7 +162,7 @@
                                         android:textStyle="bold"
                                         android:textSize="16dp"
                                         android:textColor="@color/black"
-                                        android:text="100 dats"
+                                        android:text="0 dats"
                                         android:layout_height="wrap_content">
 
                                     </TextView>

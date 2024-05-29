@@ -42,4 +42,5 @@
         <item name="android:windowExitAnimation">@anim/zoom_out</item>
 
     </style>
+    <style name="BottomSheetDialog"></style>
 </resources>

@@ -48,7 +48,7 @@ class TestResultsActivity : AppCompatActivity() {
         }
         binding.scoreSubtitle.text = "Bạn đã trả lời đúng $matchCount/$totalQuestions"
         testHistoryVM = TestHistoryViewModel(TestHistoryAPIService())
-        testHistoryVM.addTestHistory(totalQuestions, matchCount).observe(this){ data->
+        testHistoryVM.addTestHistory(this@TestResultsActivity, totalQuestions, matchCount).observe(this){ data->
             if(data != null){
                 Toast.makeText(this, "Lưu kết quả kiểm tra thành công", Toast.LENGTH_SHORT).show()
             }else{

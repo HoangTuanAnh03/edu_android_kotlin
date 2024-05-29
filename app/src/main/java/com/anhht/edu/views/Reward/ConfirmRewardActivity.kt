@@ -56,7 +56,7 @@ class ConfirmRewardActivity : AppCompatActivity(){
                     binding.editTextNumber.text.toString().toInt()
                 )
                 orderViewModel = OrderViewModel(OrderAPIService())
-                orderViewModel.addNewOrder(orderRequest).observe(this@ConfirmRewardActivity){d->
+                orderViewModel.addNewOrder(this@ConfirmRewardActivity ,orderRequest).observe(this@ConfirmRewardActivity){d->
                     Toast.makeText(applicationContext, d.message, Toast.LENGTH_LONG).show()
                     if(d.data != null){
                         finish()

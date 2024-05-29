@@ -1,6 +1,8 @@
 package com.anhht.edu.repository
 
+import android.content.Context
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import com.anhht.edu.model.ResponseApi
 import com.anhht.edu.model.data.TopicByLevel
@@ -13,7 +15,7 @@ import retrofit2.Response
 class TopicAPIService {
     private lateinit var topics: TopicByLevel
     private val topicsByLevel: MutableLiveData<TopicByLevel> = MutableLiveData<TopicByLevel>()
-    fun getTopicByLid(lid:Int) : MutableLiveData<TopicByLevel> {
+    fun getTopicByLid(context: Context, lid:Int) : MutableLiveData<TopicByLevel> {
         val retrofit = ServiceBuilder.buildService(TopicAPI::class.java)
         retrofit.getTopicByLid(lid)!!.enqueue(
             object : Callback<ResponseApi<TopicByLevel>> {
@@ -29,6 +31,7 @@ class TopicAPIService {
                     }
                 }
                 override fun onFailure(call: Call<ResponseApi<TopicByLevel>>, t: Throwable) {
+//                    Toast.makeText(context, t.message.toString(), Toast.LENGTH_SHORT).show()
                     Log.e("TopicByLevel", t.message.toString())
                 }
             }

@@ -1,7 +1,7 @@
 package com.anhht.edu.views.Profile
 
 import android.animation.ValueAnimator
-import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -22,6 +22,7 @@ import com.squareup.picasso.Picasso
 class ProfileFragment() : Fragment() {
     lateinit var binding: FragmentProfileBinding
     private lateinit var coinViewModel: CoinViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -36,48 +37,42 @@ class ProfileFragment() : Fragment() {
             Picasso.get().load("https://ui-avatars.com/api/?format=png&name="+sessionManager.fetchUserName()).into(binding.profileImage)
         }
         binding.cardOrderHistory.setOnClickListener{
-            var intent = Intent(requireContext(), OrderHistoryActivity::class.java)
+            val intent = Intent(context, OrderHistoryActivity::class.java)
             activity?.startActivity(intent)
         }
         binding.cardTestHistory.setOnClickListener{
-            var intent = Intent(requireContext(), TestHistoryActivity::class.java)
+            val intent = Intent(context, TestHistoryActivity::class.java)
             activity?.startActivity(intent)
         }
-
         binding.profileLogout.setOnClickListener{
             val sessionManager = SessionManager(requireContext())
             sessionManager.logout()
-            var intent = Intent(requireContext(), SignInActivity::class.java)
+            val intent = Intent(context, SignInActivity::class.java)
             activity?.startActivity(intent)
         }
         return binding.root
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = FragmentProfileBinding.inflate(layoutInflater)
+    override fun onResume() {
+        super.onResume()
         coinViewModel = CoinViewModel(CoinAPIService())
         val sessionManager = SessionManager(requireContext())
-        activity?.let {
-            coinViewModel.getUserInformation().observe(it){ d->
-                if(d != null){
-                    if(sessionManager.fetchUserName() == null){
-                        binding.profileEmail.text = d.data["email"]
-                        binding.profileName.text = d.data["name"]
-                        Picasso.get().load("https://ui-avatars.com/api/?format=png&name="+d.data["name"]).into(binding.profileImage)
-                    }
-                    val progress = d.data["progress"]
-                    val total = progress!!.split("/")[1]
-                    val num = progress.split("/")[0]
-                    val coin = d.data["coin"]
-                    val numCoin = coin!!.split(" ")[0]
-                    startCoinAnimation(numCoin.toInt())
-                    startCountAnimation(num.toInt(), total.toInt())
-
-                }
-            }
+        coinViewModel.getUserInformation(context as Context).observe(viewLifecycleOwner){ d->
+           if(d != null){
+              if(sessionManager.fetchUserName() == null){
+                 binding.profileEmail.text = d.data["email"]
+                 binding.profileName.text = d.data["name"]
+                 Picasso.get().load("https://ui-avatars.com/api/?format=png&name="+d.data["name"]).into(binding.profileImage)
+              }
+              val progress = d.data["progress"]
+              val total = progress!!.split("/")[1]
+              val num = progress.split("/")[0]
+              val coin = d.data["coin"]
+              val numCoin = coin!!.split(" ")[0]
+              startCoinAnimation(numCoin.toInt())
+                 startCountAnimation(num.toInt(), total.toInt())
+              }
         }
-
     }
     private fun startCoinAnimation(end: Int){
         val coinAnimator = ValueAnimator.ofInt(0, end)

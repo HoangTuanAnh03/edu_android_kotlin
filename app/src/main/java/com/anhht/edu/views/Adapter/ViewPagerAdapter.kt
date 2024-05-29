@@ -15,13 +15,11 @@ class ViewPagerAdapter(fm: FragmentManager, behavior:Int) : FragmentStatePagerAd
         return 5
     }
     override fun getItem(position: Int): Fragment {
-        return when(position){
-            0 -> LearnFragment()
-            1 -> TestFragment()
-            2 -> RewardFragment()
-            3 -> GameFragment()
-            4 -> ProfileFragment()
-            else -> BlankFragment()
-        }
+        if(position == 0) return LearnFragment()
+        if(position == 1) return TestFragment()
+        if(position == 2) return RewardFragment()
+        if(position == 3) return GameFragment()
+        if(position == 4) return ProfileFragment()
+        return BlankFragment()
     }
 }

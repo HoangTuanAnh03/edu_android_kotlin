@@ -11,8 +11,8 @@ import java.util.concurrent.TimeUnit
 
 object ServiceBuilder {
     private val client = OkHttpClient.Builder()
-        .connectTimeout(40000, TimeUnit.MILLISECONDS)
-        .readTimeout(40000, TimeUnit.MILLISECONDS)
+        .connectTimeout(400000, TimeUnit.MILLISECONDS)
+        .readTimeout(400000, TimeUnit.MILLISECONDS)
 
     fun <T> buildService(service: Class<T>): T {
         val retrofit = Retrofit.Builder()
@@ -34,6 +34,7 @@ object ServiceBuilder {
 
     private fun okhttpClient(context: Context): OkHttpClient {
         return client
+            .addInterceptor(NetworkConnectionInterceptor(context))
             .addInterceptor(AuthInterceptor(context))
             .build()
     }
