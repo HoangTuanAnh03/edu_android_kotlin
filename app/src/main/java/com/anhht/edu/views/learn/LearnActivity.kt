@@ -62,7 +62,7 @@ class LearnActivity : AppCompatActivity() , Runnable{
         val extras : Bundle? = intent.extras
         val topic : Topic = extras?.get("topic") as Topic
         mDialog = Dialog(this)
-        binding.btnNext.setOnClickListener{
+        binding.btnCheck.setOnClickListener{
             if(binding.muitipleChoice.visibility == View.GONE ){
                 if(binding.txtAns.text.toString() != ""){
                     isClickBtn = true
