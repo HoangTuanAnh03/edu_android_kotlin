@@ -1,11 +1,11 @@
-package com.anhht.edu.views.Adapter
+package com.anhht.edu.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import com.anhht.edu.views.BlankFragment
-import com.anhht.edu.views.Profile.ProfileFragment
-import com.anhht.edu.views.Reward.RewardFragment
+import com.anhht.edu.views.profile.ProfileFragment
+import com.anhht.edu.views.reward.RewardFragment
 import com.anhht.edu.views.game.GameFragment
 import com.anhht.edu.views.learn.LearnFragment
 import com.anhht.edu.views.test.TestFragment

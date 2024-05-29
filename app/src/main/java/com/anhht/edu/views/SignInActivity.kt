@@ -63,14 +63,12 @@ class SignInActivity : AppCompatActivity() {
 
         binding.redirectSignUp.setOnClickListener {
             startActivity(Intent(this, SignUpActivity::class.java))
-            finish()
         }
 
         binding.forgetPassword.setOnClickListener {
             intent = Intent(this, ForgetPasswordActivity::class.java)
             val option = ActivityOptions.makeCustomAnimation(this, R.anim.right_in, R.anim.left_out).toBundle()
             startActivity(intent, option)
-            finish()
         }
 
         binding.googleBtn.setOnClickListener {
@@ -97,16 +95,9 @@ class SignInActivity : AppCompatActivity() {
                     progressbar.reset()
                     if (resultSignIn != null) {
                         if (resultSignIn.status == "OK") {
-
-                            Toast.makeText(
-                                this@SignInActivity,
-                                "Login Success" + sessionManager.fetchAuthAccessToken(),
-                                Toast.LENGTH_SHORT
-                            ).show()
                             sessionManager.saveAuthAccessToken(resultSignIn.data.tokens.accessToken)
                             sessionManager.saveAuthRefreshToken(resultSignIn.data.tokens.refreshToken)
                             sessionManager.saveStateLogin("true")
-
 
                             if (binding.switchRemember.isChecked) {
                                 sessionManager.saveEmail(binding.email.editText!!.text.toString())
@@ -212,6 +203,8 @@ class SignInActivity : AppCompatActivity() {
                                                 )
                                             ) { result ->
                                                 if (result?.status.toString() == "OK") {
+                                                    sessionManager.saveStateRememberPassword("false");
+                                                    sessionManager.saveUserName(user.displayName.toString())
                                                     sessionManager.saveEmail(user.email.toString())
                                                     sessionManager.saveAuthAccessToken(result!!.data.tokens.accessToken)
                                                     sessionManager.saveAuthRefreshToken(result.data.tokens.refreshToken)

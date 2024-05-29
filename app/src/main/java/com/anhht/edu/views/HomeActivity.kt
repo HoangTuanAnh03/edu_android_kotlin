@@ -8,7 +8,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.anhht.edu.R
 import com.anhht.edu.databinding.ActivityHomeBinding
-import com.anhht.edu.views.Adapter.ViewPagerAdapter
+import com.anhht.edu.adapter.ViewPagerAdapter
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class HomeActivity : AppCompatActivity() {

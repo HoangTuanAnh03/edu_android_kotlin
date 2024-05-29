@@ -13,7 +13,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".views.Profile.testhistory.TestHistoryActivity"
+            android:name=".views.profile.testhistory.TestHistoryActivity"
             android:launchMode="singleTop"
             android:exported="false" />
         <activity
@@ -25,11 +25,11 @@
             android:launchMode="singleTop"
             android:exported="false" />
         <activity
-            android:name=".views.Profile.orderhistory.OrderHistoryActivity"
+            android:name=".views.profile.orderhistory.OrderHistoryActivity"
             android:launchMode="singleTop"
             android:exported="false" />
         <activity
-            android:name=".views.Reward.ConfirmRewardActivity"
+            android:name=".views.reward.ConfirmRewardActivity"
             android:exported="false"
             android:launchMode="singleTop"
             android:windowSoftInputMode="adjustResize" />

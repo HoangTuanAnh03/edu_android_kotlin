@@ -1,5 +1,4 @@
-package com.anhht.edu.views.Adapter
-
+package com.anhht.edu.adapter
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color

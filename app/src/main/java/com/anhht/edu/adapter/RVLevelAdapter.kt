@@ -1,7 +1,6 @@
-package com.anhht.edu.views.Adapter
+package com.anhht.edu.adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,8 +27,8 @@ class RVLevelAdapter(var context: Context, private var list:List<Level>, private
         Picasso.get().load("https://imgur.com/"+list[position].levelName.split("thaidang")[1]).into(holder.img);
         holder.name.text = list[position].levelName.split("thaidang")[0]
         holder.progress.progress = list[position].process.toInt()
+        holder.description.text = "Danh sách từ vựng " + list[position].levelName.split("thaidang")[0] + " bao gồm " + list[position].numTopics + " bài học và " + list[position].numWords + " từ vựng được phân loại theo chủ đề, độ khó và cách sử dụng theo CEFR."
         holder.card.setOnClickListener(View.OnClickListener {
-            Log.e("E", list[position].toString())
             listener.onClickItemLevelCard(list[position])
         })
     }
@@ -43,5 +42,6 @@ class RVLevelAdapter(var context: Context, private var list:List<Level>, private
         var img = itemView.findViewById<ImageView>(R.id.levelImg)
         var name = itemView.findViewById<TextView>(R.id.levelName)
         var progress = itemView.findViewById<ProgressBar>(R.id.levelProgress)
+        var description = itemView.findViewById<TextView>(R.id.levelDesc)
     }
 }

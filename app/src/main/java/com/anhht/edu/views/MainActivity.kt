@@ -9,12 +9,8 @@ import android.os.Looper
 import com.anhht.edu.R
 import com.anhht.edu.config.SessionManager
 import com.anhht.edu.databinding.ActivityMainBinding
-import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 
 class MainActivity : AppCompatActivity() {
 

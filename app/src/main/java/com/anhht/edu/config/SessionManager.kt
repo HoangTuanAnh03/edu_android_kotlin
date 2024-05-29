@@ -6,7 +6,8 @@ import com.anhht.edu.R
 
 class SessionManager (context: Context) {
     private var prefs: SharedPreferences = context.getSharedPreferences(context.getString(R.string.app_name), Context.MODE_PRIVATE)
-    
+    private val editor = prefs.edit()
+
     companion object {
         const val USER_ACCESS_TOKEN = "user_access_token"
         const val USER_REFRESH_TOKEN = "user_refresh_token"
@@ -15,7 +16,6 @@ class SessionManager (context: Context) {
         const val APP_REMEMBER_PASSWORD = "app_remember_password"
         const val APP_STATE_LOGIN = "app_state_login"
         const val USER_NAME = "user_name"
-        const val USER_EMAIL_PROFILE = "user_email_profile"
     }
     fun saveUserName(name: String){
         val editor = prefs.edit()
@@ -27,17 +27,7 @@ class SessionManager (context: Context) {
         return prefs.getString(USER_NAME, null)
     }
 
-    fun saveUserEmailProfile(email: String){
-        val editor = prefs.edit()
-        editor.putString(USER_EMAIL_PROFILE, email)
-        editor.apply()
-    }
-
-    fun fetchUserEmailProfile() : String?{
-        return prefs.getString(USER_EMAIL_PROFILE, null)
-    }
     fun saveAuthAccessToken(token: String) {
-        val editor = prefs.edit()
         editor.putString(USER_ACCESS_TOKEN, token)
         editor.apply()
     }
@@ -47,7 +37,6 @@ class SessionManager (context: Context) {
     }
 
     fun saveAuthRefreshToken(token: String) {
-        val editor = prefs.edit()
         editor.putString(USER_REFRESH_TOKEN, token)
         editor.apply()
     }
@@ -57,7 +46,6 @@ class SessionManager (context: Context) {
     }
 
     fun saveEmail(email: String) {
-        val editor = prefs.edit()
         editor.putString(USER_EMAIL, email)
         editor.apply()
     }
@@ -67,7 +55,6 @@ class SessionManager (context: Context) {
     }
 
     fun savePassWord(pass: String) {
-        val editor = prefs.edit()
         editor.putString(USER_PASSWORD, pass)
         editor.apply()
     }
@@ -78,7 +65,6 @@ class SessionManager (context: Context) {
 
 
     fun saveStateRememberPassword(state: String) {
-        val editor = prefs.edit()
         editor.putString(APP_REMEMBER_PASSWORD, state)
         editor.apply()
     }
@@ -88,7 +74,6 @@ class SessionManager (context: Context) {
     }
 
     fun saveStateLogin(state: String) {
-        val editor = prefs.edit()
         editor.putString(APP_STATE_LOGIN, state)
         editor.apply()
     }
@@ -98,8 +83,11 @@ class SessionManager (context: Context) {
     }
 
     fun logout(){
-        val editor = prefs.edit()
-        editor.clear()
+        if (fetchStateRememberPassword() =="true"){
+            editor.putString(APP_STATE_LOGIN, "false")
+        } else {
+            editor.clear()
+        }
         editor.apply()
     }
 }

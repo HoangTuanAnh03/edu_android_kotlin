@@ -23,8 +23,8 @@ class TestFragment : Fragment() {
     ): View {
         binding = FragmentTestBinding.inflate(layoutInflater)
         binding.testStart.setOnClickListener{
-            var intent = Intent(requireContext(), VocabTestActivity::class.java)
-            activity?.startActivity(intent)
+            var intent =
+            activity?.startActivity(Intent(requireContext(), VocabTestActivity::class.java))
         }
         return binding.root
     }

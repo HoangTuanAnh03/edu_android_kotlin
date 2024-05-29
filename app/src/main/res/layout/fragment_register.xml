@@ -12,7 +12,7 @@
         android:orientation="vertical"
         android:paddingHorizontal="32dp"
         android:paddingTop="16dp"
-        android:paddingBottom="32dp"
+        android:paddingBottom="16dp"
         >
         <LinearLayout
             android:layout_width="match_parent"
@@ -186,46 +186,23 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/linearLayout2"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/google_btn"
+                style="?attr/materialButtonOutlinedStyle"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:weightSum="2">
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/google_btn"
-                    style="?attr/materialButtonOutlinedStyle"
-                    android:layout_width="0dp"
-                    android:layout_height="55dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_weight="1"
-                    android:drawableLeft="@drawable/logo_google"
-                    android:fontFamily="@font/merriweathersans_semibold"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    android:text="Google"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    app:backgroundTint="@color/white"
-                    app:cornerRadius="20dp" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/facebook_btn"
-                    style="?attr/materialButtonStyle"
-                    android:layout_width="0dp"
-                    android:layout_height="55dp"
-                    android:layout_weight="1"
-                    android:backgroundTint="@color/blue"
-                    android:drawableLeft="@drawable/logo_facebook"
-                    android:fontFamily="@font/merriweathersans_semibold"
-                    android:padding="10dp"
-                    android:text="Facebook"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    app:backgroundTint="@color/white"
-                    app:cornerRadius="20dp" />
-            </LinearLayout>
+                android:layout_height="60dp"
+                android:layout_marginTop="16dp"
+                android:drawableLeft="@drawable/logo_google"
+                android:fontFamily="@font/merriweathersans_regular"
+                android:gravity="center_vertical|center"
+                android:paddingLeft="60dp"
+                android:text="Sign in with Google"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:backgroundTint="@color/white"
+                app:cornerRadius="5dp"
+                app:strokeColor="@color/blue"
+                app:strokeWidth="2dp" />
 
         </LinearLayout>
 

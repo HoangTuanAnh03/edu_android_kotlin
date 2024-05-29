@@ -38,27 +38,33 @@ class EmailFragment : Fragment() {
 
         btnContinue.setOnClickListener {
             if (handlerValidate()) {
-                val progressbar = BtnLoadingProgressbar(it)
-                progressbar.setLoading()
-                apiService.forgetPassword(binding.email.editText!!.text.toString()) { it1 ->
-                    progressbar.reset()
-                    if (it1?.status.toString() == "OK") {
-                        val otpFragment = OtpFragment()
-                        val bundle = Bundle()
-                        bundle.putString("email", binding.email.editText!!.text.toString())
-                        otpFragment.arguments = bundle
+                apiService.exitEmail(binding.email.editText!!.text.toString().trim()) { response ->
+                    if (response?.data.toString() == "false") {
+                        binding.email.error = "Email doesn't exists!!"
+                    } else {
+                        val progressbar = BtnLoadingProgressbar(it)
+                        progressbar.setLoading()
+                        apiService.forgetPassword(binding.email.editText!!.text.toString()) { it1 ->
+                            progressbar.reset()
+                            if (it1?.status.toString() == "OK") {
+                                val otpFragment = OtpFragment()
+                                val bundle = Bundle()
+                                bundle.putString("email", binding.email.editText!!.text.toString())
+                                otpFragment.arguments = bundle
 
-                        activity?.supportFragmentManager!!.beginTransaction().apply {
-                            replace(R.id.forgetPasswordLayout, otpFragment, "otpFrag")
-                            setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                            setReorderingAllowed(true)
-                            addToBackStack("otpFrag")
-                            commit()
+                                activity?.supportFragmentManager!!.beginTransaction().apply {
+                                    replace(R.id.forgetPasswordLayout, otpFragment, "otpFrag")
+                                    setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                                    setReorderingAllowed(true)
+                                    addToBackStack("otpFrag")
+                                    commit()
+                                }
+                            }
+                            if (it1?.status.toString() == "BAD_REQUEST") {
+                                binding.email.error =
+                                    "You have entered the wrong OTP more than 5 times. Please wait another 5 minutes"
+                            }
                         }
-                    }
-                    if (it1?.status.toString() == "BAD_REQUEST") {
-                        binding.email.error =
-                            "You have entered the wrong OTP more than 5 times. Please wait another 5 minutes"
                     }
                 }
             }
@@ -66,22 +72,16 @@ class EmailFragment : Fragment() {
     }
 
     private fun handlerValidate(): Boolean {
-        if (binding.email.editText?.text.toString().trim().isEmpty()) {
-            binding.email.error = "Email not empty!"
-            return false
-        }
+        var r = true
+
         if (!ValidateDataUtil.isEmail(binding.email.editText?.text.toString().trim())
         ) {
             binding.email.error = "Invalid email format"
-            return false
+            r = false
         }
-
-        var r = true
-        apiService.exitEmail(binding.email.editText!!.text.toString().trim()) { response ->
-            if (response?.data.toString() == "false") {
-                binding.email.error = "Email doesn't exists!!"
-                r = false
-            }
+        if (binding.email.editText?.text.toString().trim().isEmpty()) {
+            binding.email.error = "Email not empty!"
+            r = false
         }
 
         return r

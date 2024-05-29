@@ -62,7 +62,7 @@ class LearnActivity : AppCompatActivity() , Runnable{
         val topic : Topic = extras?.get("topic") as Topic
         mDialog = Dialog(this)
 
-        binding.btnNext.setOnClickListener{
+        binding.btnCheck.setOnClickListener{
             if(isClickBtn){
 
                 coinViewModel = CoinViewModel(CoinAPIService())

@@ -9,12 +9,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.anhht.edu.R
 import com.anhht.edu.databinding.ActivityTestResultsBinding
-import com.anhht.edu.model.data.TestHistory
 import com.anhht.edu.repository.TestHistoryAPIService
-import com.anhht.edu.viewmodels.ProductViewModel
 import com.anhht.edu.viewmodels.TestHistoryViewModel
-import com.anhht.edu.views.Adapter.RVProductAdapter
-import com.anhht.edu.views.Adapter.RVTestResultAdapter
+import com.anhht.edu.adapter.RVTestResultAdapter
 
 class TestResultsActivity : AppCompatActivity() {
     lateinit var binding: ActivityTestResultsBinding

@@ -80,4 +80,6 @@ dependencies {
 
     //dinamic
     androidTestImplementation("androidx.dynamicanimation:dynamicanimation:1.0.0")
+
+    implementation ("com.google.android.material:material:1.5.0")
 }

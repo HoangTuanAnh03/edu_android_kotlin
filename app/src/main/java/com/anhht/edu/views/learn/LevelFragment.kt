@@ -2,13 +2,12 @@ package com.anhht.edu.views.learn
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
-import com.anhht.edu.views.Adapter.RVLevelAdapter.IClickLevelCard
+import com.anhht.edu.adapter.RVLevelAdapter.IClickLevelCard
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.anhht.edu.R
@@ -19,13 +18,13 @@ import com.anhht.edu.repository.CoinAPIService
 import com.anhht.edu.repository.LevelAPIService
 import com.anhht.edu.viewmodels.CoinViewModel
 import com.anhht.edu.viewmodels.LevelViewModel
-import com.anhht.edu.views.Adapter.RVLevelAdapter
+import com.anhht.edu.adapter.RVLevelAdapter
 
 
 class LevelFragment : Fragment() {
-    lateinit var rvMain: RecyclerView
-    lateinit var levelApdater: RVLevelAdapter
-    lateinit var levelViewModel:LevelViewModel
+    private lateinit var rvMain: RecyclerView
+    private lateinit var levelApdater: RVLevelAdapter
+    private lateinit var levelViewModel: LevelViewModel
     private lateinit var coinViewModel: CoinViewModel
 
     private lateinit var binding: FragmentLevelBinding
@@ -38,14 +37,14 @@ class LevelFragment : Fragment() {
         rvMain.layoutManager = LinearLayoutManager(context)
 
         //lay data tu viewmodel
-
         levelViewModel = LevelViewModel(LevelAPIService())
         levelViewModel.getAllUsers(context as Context).observe(viewLifecycleOwner) { userList ->
             levelApdater = RVLevelAdapter(context as Context, userList, object : IClickLevelCard {
                 override fun onClickItemLevelCard(level: Level) {
-                    var bundle = Bundle()
+                    val bundle = Bundle()
                     bundle.putSerializable("level", level)
-                    var fmt: FragmentTransaction = activity?.supportFragmentManager?.beginTransaction()!!
+                    val fmt: FragmentTransaction =
+                        activity?.supportFragmentManager?.beginTransaction()!!
                     val topicFragment = TopicFragment()
                     topicFragment.arguments = bundle
                     fmt.apply {
@@ -54,17 +53,18 @@ class LevelFragment : Fragment() {
                         setReorderingAllowed(true)
                         addToBackStack("topicF")
                         activity?.supportFragmentManager!!.popBackStackImmediate()
-                        commit() }
+                        commit()
+                    }
                 }
             })
-            rvMain.setAdapter(levelApdater)
+            rvMain.adapter = levelApdater
         }
         val sessionManager = SessionManager(requireContext())
         coinViewModel = CoinViewModel(CoinAPIService())
-        coinViewModel.getUserInformation().observe(viewLifecycleOwner){d->
-            if(d != null){
+        coinViewModel.getUserInformation().observe(viewLifecycleOwner) { d ->
+            if (d != null) {
                 sessionManager.saveUserName(d.data["name"].toString())
-                sessionManager.saveUserEmailProfile(d.data["email"].toString())
+                sessionManager.saveEmail(d.data["email"].toString())
             }
         }
         return binding.root

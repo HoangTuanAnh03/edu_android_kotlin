@@ -1,29 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".views.Profile.ProfileFragment">
+    android:background="@color/white"
+    tools:context=".views.p">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:background="@drawable/background_profile_top"
                     android:layout_height="300dp"
+                    android:background="@drawable/background_profile_top"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
@@ -34,7 +37,7 @@
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:layout_marginTop="40dp"
-                        app:cardCornerRadius="50dp"
+                        app:cardCornerRadius="80sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
@@ -43,7 +46,7 @@
                             android:id="@+id/profileImage"
                             android:layout_width="100dp"
                             android:layout_height="100dp"
-                            android:src="@drawable/wordle" />
+                            android:src="@drawable/user" />
                     </androidx.cardview.widget.CardView>
 
                     <TextView
@@ -51,119 +54,133 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="Thai Dang"
+                        android:text="Name"
                         android:textColor="#ffffff"
-                        android:textSize="20dp"
+                        android:textSize="24dp"
                         app:layout_constraintEnd_toEndOf="@+id/cardView"
                         app:layout_constraintStart_toStartOf="@+id/cardView"
                         app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
                     <TextView
                         android:id="@+id/profile_email"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="thaidangfa@gmail.com"
-                        android:textColor="#ffffff"
-                        android:textSize="17dp"
                         android:layout_marginTop="5dp"
+                        android:text="abc@gmail.com"
+                        android:textColor="#ffffff"
+                        android:textSize="16dp"
+                        android:textStyle="italic"
                         app:layout_constraintEnd_toEndOf="@+id/profileName"
                         app:layout_constraintStart_toStartOf="@+id/profileName"
                         app:layout_constraintTop_toBottomOf="@+id/profileName" />
+
                     <LinearLayout
-                        app:layout_constraintEnd_toEndOf="@+id/profile_email"
-                        app:layout_constraintStart_toStartOf="@+id/profile_email"
-                        app:layout_constraintTop_toBottomOf="@+id/profile_email"
                         android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="16dp"
                         android:gravity="center"
-                        android:layout_marginTop="10dp"
                         android:orientation="horizontal"
-                        android:layout_height="60dp">
+                        app:layout_constraintEnd_toEndOf="@+id/profile_email"
+                        app:layout_constraintHorizontal_bias="0.501"
+                        app:layout_constraintStart_toStartOf="@+id/profile_email"
+                        app:layout_constraintTop_toBottomOf="@+id/profile_email">
+
                         <androidx.cardview.widget.CardView
-                            xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                            card_view:cardBackgroundColor="#4559B8"
-                            app:cardCornerRadius="7dp"
                             android:layout_width="150dp"
+                            android:layout_height="wrap_content"
                             android:layout_marginEnd="20dp"
-                            android:layout_height="wrap_content">
+                            app:cardBackgroundColor="#fff"
+                            app:cardCornerRadius="7dp">
+
                             <RelativeLayout
                                 android:layout_width="wrap_content"
-                                android:padding="4dp"
-                                android:layout_height="wrap_content">
+                                android:layout_height="wrap_content"
+                                android:padding="4dp">
+
                                 <ImageView
                                     android:id="@+id/ic_progress"
                                     android:layout_width="26dp"
+                                    android:layout_height="26dp"
                                     android:layout_centerVertical="true"
-                                    android:src="@drawable/ic_progress"
-                                    android:layout_height="26dp">
-                                </ImageView>
+                                    android:layout_margin="8dp"
+                                    android:src="@drawable/ic_progress" />
+
                                 <RelativeLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
                                     android:layout_centerVertical="true"
                                     android:layout_marginStart="10dp"
-                                    android:layout_width="wrap_content"
-                                    android:layout_toEndOf="@+id/ic_progress"
-                                    android:layout_height="wrap_content">
+                                    android:layout_toEndOf="@+id/ic_progress">
+
                                     <TextView
-                                        android:layout_width="wrap_content"
-                                        android:text="Progress"
-                                        android:textColor="@color/white"
-                                        android:textSize="11dp"
                                         android:id="@+id/txt_progressLabel"
-                                        android:layout_height="wrap_content">
-                                    </TextView>
-                                    <TextView
                                         android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Progress"
                                         android:textColor="@color/black"
+                                        android:textSize="14dp" />
+
+                                    <TextView
+                                        android:id="@+id/progress"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
                                         android:layout_below="@+id/txt_progressLabel"
                                         android:layout_marginTop="3dp"
-                                        android:id="@+id/progress"
-                                        android:textStyle="bold"
+                                        android:text="0/8777"
+                                        android:textColor="@color/black"
                                         android:textSize="16dp"
-                                        android:text="1000/8777"
-                                        android:layout_height="wrap_content">
-                                    </TextView>
+                                        android:textStyle="bold" />
                                 </RelativeLayout>
                             </RelativeLayout>
                         </androidx.cardview.widget.CardView>
+
                         <androidx.cardview.widget.CardView
-                            xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                            app:cardCornerRadius="7dp"
-                            card_view:cardBackgroundColor="#4559B8"
                             android:layout_width="150dp"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            app:cardCornerRadius="7dp"
+                            app:cardBackgroundColor="#fff">
+
                             <RelativeLayout
                                 android:layout_width="wrap_content"
-                                android:padding="4dp"
-                                android:layout_height="wrap_content">
+                                android:layout_height="wrap_content"
+                                android:padding="4dp">
+
                                 <ImageView
                                     android:id="@+id/ic_coin"
                                     android:layout_width="26dp"
+                                    android:layout_height="26dp"
                                     android:layout_centerVertical="true"
-                                    android:src="@drawable/ic_coin_3"
-                                    android:layout_height="26dp">
-                                </ImageView>
+                                    android:layout_marginStart="8dp"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_marginEnd="8dp"
+                                    android:layout_marginBottom="8dp"
+                                    android:src="@drawable/ic_coin_3" />
+
                                 <RelativeLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
                                     android:layout_centerVertical="true"
                                     android:layout_marginStart="10dp"
-                                    android:layout_width="wrap_content"
-                                    android:layout_toEndOf="@+id/ic_coin"
-                                    android:layout_height="wrap_content">
+                                    android:layout_toEndOf="@+id/ic_coin">
+
                                     <TextView
-                                        android:layout_width="wrap_content"
-                                        android:text="Coins"
-                                        android:textColor="@color/white"
                                         android:id="@+id/txt_coinLabel"
-                                        android:textSize="11dp"
-                                        android:layout_height="wrap_content">
-                                    </TextView>
-                                    <TextView
                                         android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Coins"
+                                        android:textColor="@color/black"
+                                        android:textSize="14sp" />
+
+                                    <TextView
+                                        android:id="@+id/coin"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
                                         android:layout_below="@+id/txt_coinLabel"
                                         android:layout_marginTop="3dp"
-                                        android:id="@+id/coin"
-                                        android:textStyle="bold"
-                                        android:textSize="16dp"
+                                        android:text="0 dats"
                                         android:textColor="@color/black"
-                                        android:text="100 dats"
-                                        android:layout_height="wrap_content">
+                                        android:textSize="16dp"
+                                        android:textStyle="bold">
 
                                     </TextView>
                                 </RelativeLayout>
@@ -174,113 +191,117 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
+
             <RelativeLayout
                 android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="32dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginBottom="15dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginStart="15dp"
-                android:layout_height="match_parent">
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="20dp">
+
                 <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-
                     android:id="@+id/card_test_history"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:elevation="5dp"
+                    app:cardCornerRadius="10dp"
+                    app:cardUseCompatPadding="true">
 
-                    android:layout_height="wrap_content">
                     <RelativeLayout
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginStart="40dp"
-                        android:layout_marginEnd="40dp"
-                        android:padding="20dp"
                         android:id="@+id/profile_test_history"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:padding="20dp">
+
                         <ImageView
                             android:id="@+id/ic_test"
                             android:layout_width="25dp"
-                            android:src="@drawable/ic_test_history"
+                            android:layout_height="25dp"
                             android:layout_centerVertical="true"
-                            android:layout_height="25dp">
+                            android:layout_marginEnd="30dp"
+                            android:src="@drawable/ic_test_history">
+
                         </ImageView>
+
                         <TextView
                             android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            android:layout_toEndOf="@+id/ic_test"
-                            android:text="Lịch sử bài kiểm tra"
-                            android:textSize="20sp"
                             android:layout_marginStart="15dp"
-                            android:layout_height="wrap_content">
-                        </TextView>
+                            android:layout_toEndOf="@+id/ic_test"
+                            android:text="Lịch sử kiểm tra"
+                            android:textSize="20sp" />
                     </RelativeLayout>
                 </androidx.cardview.widget.CardView>
+
                 <androidx.cardview.widget.CardView
-                    android:layout_marginTop="7dp"
-                    android:layout_below="@+id/card_test_history"
-                    android:layout_width="match_parent"
                     android:id="@+id/card_order_history"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/card_test_history"
+                    android:layout_marginTop="8dp"
                     android:elevation="5dp"
-                    android:layout_height="wrap_content">
+                    app:cardCornerRadius="10dp"
+                    app:cardUseCompatPadding="true">
+
                     <RelativeLayout
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginStart="40dp"
-                        android:layout_marginEnd="40dp"
-                        android:padding="20dp"
                         android:id="@+id/profile_order_history"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:padding="20dp">
+
                         <ImageView
                             android:id="@+id/ic_order"
                             android:layout_width="25dp"
-                            android:src="@drawable/ic_order_history"
+                            android:layout_height="25dp"
                             android:layout_centerVertical="true"
-                            android:layout_height="25dp">
-                        </ImageView>
+                            android:layout_marginEnd="30dp"
+                            android:src="@drawable/ic_order_history" />
+
                         <TextView
                             android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
+                            android:layout_marginStart="15dp"
                             android:layout_toEndOf="@+id/ic_order"
                             android:text="Lịch sử đổi thưởng"
-                            android:textSize="20sp"
-                            android:layout_marginStart="15dp"
-                            android:layout_height="wrap_content">
-                        </TextView>
+                            android:textSize="20sp" />
                     </RelativeLayout>
                 </androidx.cardview.widget.CardView>
+
                 <androidx.cardview.widget.CardView
-                    android:layout_marginTop="7dp"
                     android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_below="@id/card_order_history"
+                    android:layout_marginTop="8dp"
                     android:elevation="5dp"
-                    android:layout_height="wrap_content">
+                    app:cardCornerRadius="10dp"
+                    app:cardUseCompatPadding="true">
+
                     <RelativeLayout
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginStart="40dp"
-                        android:layout_marginEnd="40dp"
-                        android:padding="20dp"
                         android:id="@+id/profile_logout"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:padding="20dp">
+
                         <ImageView
                             android:id="@+id/profile_logout_icon"
                             android:layout_width="25dp"
-                            android:src="@drawable/ic_logout"
+                            android:layout_height="25dp"
                             android:layout_centerVertical="true"
-                            android:layout_height="25dp">
-                        </ImageView>
+                            android:layout_marginEnd="30dp"
+                            android:src="@drawable/ic_logout" />
+
                         <TextView
                             android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            android:layout_toEndOf="@+id/profile_logout_icon"
-                            android:text="Đăng Xuất"
-                            android:textColor="@color/red"
-                            android:textSize="20sp"
                             android:layout_marginStart="15dp"
-                            android:layout_height="wrap_content">
-                        </TextView>
+                            android:layout_toEndOf="@+id/profile_logout_icon"
+                            android:text="Đăng xuất"
+                            android:textColor="@color/red"
+                            android:textSize="20sp" />
                     </RelativeLayout>
                 </androidx.cardview.widget.CardView>
             </RelativeLayout>

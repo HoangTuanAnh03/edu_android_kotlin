@@ -262,7 +262,7 @@ class RegisterFragment : Fragment() {
                     binding.btnContinue.text = "Register"
 
                     binding.linearLayout.visibility = View.GONE
-                    binding.linearLayout2.visibility = View.GONE
+                    binding.googleBtn.visibility = View.GONE
 
                     binding.btnContinue.visibility = View.GONE
                     btnRegisterTV.text = "Register"
@@ -286,7 +286,7 @@ class RegisterFragment : Fragment() {
                     binding.btnContinue.text = "Continue"
 
                     binding.linearLayout.visibility = View.VISIBLE
-                    binding.linearLayout2.visibility = View.VISIBLE
+                    binding.googleBtn.visibility = View.VISIBLE
 
                     binding.btnContinue.visibility = View.VISIBLE
                     btnRegister.visibility = View.GONE
@@ -319,6 +319,8 @@ class RegisterFragment : Fragment() {
                                                 )
                                             ) { result ->
                                                 if (result?.status.toString() == "OK") {
+                                                    sessionManager.saveStateRememberPassword("false");
+                                                    sessionManager.saveUserName(user.displayName.toString())
                                                     sessionManager.saveEmail(user.email.toString())
                                                     sessionManager.saveAuthAccessToken(result!!.data.tokens.accessToken)
                                                     sessionManager.saveAuthRefreshToken(result.data.tokens.refreshToken)

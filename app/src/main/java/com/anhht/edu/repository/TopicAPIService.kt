@@ -3,6 +3,7 @@ package com.anhht.edu.repository
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.anhht.edu.model.ResponseApi
+import com.anhht.edu.model.data.Topic
 import com.anhht.edu.model.data.TopicByLevel
 import com.anhht.edu.network.ServiceBuilder
 import com.anhht.edu.network.TopicAPI
@@ -11,9 +12,9 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class TopicAPIService {
-    private lateinit var topics: TopicByLevel
-    private val topicsByLevel: MutableLiveData<TopicByLevel> = MutableLiveData<TopicByLevel>()
-    fun getTopicByLid(lid:Int) : MutableLiveData<TopicByLevel> {
+    private lateinit var topics: List<Topic>
+    private val topicsByLevel: MutableLiveData<List<Topic>> = MutableLiveData<List<Topic>>()
+    fun getTopicByLid(lid:Int) : MutableLiveData<List<Topic>> {
         val retrofit = ServiceBuilder.buildService(TopicAPI::class.java)
         retrofit.getTopicByLid(lid)!!.enqueue(
             object : Callback<ResponseApi<TopicByLevel>> {
@@ -24,7 +25,7 @@ class TopicAPIService {
                     val data = response.body()
                     Log.e("data",data.toString())
                     if(data?.data?.listTopics != null){
-                        topics = data.data
+                        topics = data.data.listTopics
                         topicsByLevel.value = topics
                     }
                 }
