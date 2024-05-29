@@ -37,6 +37,12 @@ class RewardFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentRewardBinding.inflate(inflater)
+
+        return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
         rvProduct = binding.rewardRV
 
         rvProduct.layoutManager = GridLayoutManager(context, 2)
@@ -54,6 +60,7 @@ class RewardFragment : Fragment() {
             })
             rvProduct.adapter = productAdapter
         }
+
         val searchView = binding.searchProduct
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
@@ -68,7 +75,6 @@ class RewardFragment : Fragment() {
                 return false
             }
         })
-        return binding.root
     }
     fun changeUnicode(str: String?): String {
         var temp: String = Normalizer.normalize(str, Normalizer.Form.NFD)

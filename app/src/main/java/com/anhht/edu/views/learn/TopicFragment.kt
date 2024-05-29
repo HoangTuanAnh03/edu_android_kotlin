@@ -48,7 +48,7 @@ class TopicFragment : Fragment() {
 
         binding.actionBarTopicName.text = "Chủ đề " + level.levelName.split("thaidang")[0]
         topicViewModel = TopicViewModel(TopicAPIService())
-        topicViewModel.getTopicByLid(level.lid).observe(viewLifecycleOwner) { topic ->
+        topicViewModel.getTopicByLid(context as Context, level.lid).observe(viewLifecycleOwner) { topic ->
             listTopic = topic
             topicAdapter =
                 RVTopicAdapter(context as Context, topic, object : RVTopicAdapter.IClickTopicCard {

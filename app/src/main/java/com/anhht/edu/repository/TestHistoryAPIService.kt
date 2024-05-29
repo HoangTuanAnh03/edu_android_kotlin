@@ -2,6 +2,7 @@ package com.anhht.edu.repository
 
 import android.content.Context
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import com.anhht.edu.model.ResponseApi
 import com.anhht.edu.model.data.Product
@@ -16,8 +17,8 @@ import retrofit2.Response
 class TestHistoryAPIService {
     private val history: MutableLiveData<TestHistory> = MutableLiveData<TestHistory>()
     private val historyDetails: MutableLiveData<List<TestHistory>> = MutableLiveData<List<TestHistory>>()
-    fun addTestHistory(numQues : Int, numCorrectQues : Int) : MutableLiveData<TestHistory> {
-        val retrofit = ServiceBuilder.buildService(HistoryAPI::class.java)
+    fun addTestHistory(context: Context, numQues : Int, numCorrectQues : Int) : MutableLiveData<TestHistory> {
+        val retrofit = ServiceBuilder.buildService(context, HistoryAPI::class.java)
         retrofit.addTestHistory(numQues, numCorrectQues)!!.enqueue(
             object : Callback<ResponseApi<TestHistory>> {
                 override fun onResponse(
@@ -28,6 +29,7 @@ class TestHistoryAPIService {
                     history.value = data?.data
                 }
                 override fun onFailure(call: Call<ResponseApi<TestHistory>>, t: Throwable) {
+//                    Toast.makeText(context, t.message.toString(), Toast.LENGTH_SHORT).show()
                     Log.e("t", "l", t)
                 }
             }
@@ -35,8 +37,8 @@ class TestHistoryAPIService {
         return history
     }
 
-    fun getAllTestHistory() : MutableLiveData<List<TestHistory>> {
-        val retrofit = ServiceBuilder.buildService(HistoryAPI::class.java)
+    fun getAllTestHistory(context: Context) : MutableLiveData<List<TestHistory>> {
+        val retrofit = ServiceBuilder.buildService(context, HistoryAPI::class.java)
         retrofit.getAllTestHistory()!!.enqueue(
             object : Callback<ResponseApi<List<TestHistory>>> {
                 override fun onResponse(
@@ -47,6 +49,7 @@ class TestHistoryAPIService {
                     historyDetails.value = data?.data
                 }
                 override fun onFailure(call: Call<ResponseApi<List<TestHistory>>>, t: Throwable) {
+//                    Toast.makeText(context, t.message.toString(), Toast.LENGTH_SHORT).show()
                     Log.e("t", "l", t)
                 }
             }

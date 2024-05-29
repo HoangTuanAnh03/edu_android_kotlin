@@ -1,9 +1,11 @@
 package com.anhht.edu.views.test
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.util.AttributeSet
 import android.util.Log
 import android.view.View
 import android.widget.Button
@@ -34,8 +36,13 @@ class VocabTestActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityVocabTestBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+    }
+
+    override fun onResume() {
+        super.onResume()
         wordViewModel = WordViewModel(WordAPIService())
-        wordViewModel.getTest().observe(this@VocabTestActivity){question->
+        wordViewModel.getTest(this@VocabTestActivity).observe(this@VocabTestActivity){question->
             if(question.data == null){
                 Toast.makeText(this, question.message, Toast.LENGTH_LONG).show()
                 finish()
@@ -46,10 +53,11 @@ class VocabTestActivity : AppCompatActivity() {
                 time = data!!.size.toString()
                 GlobalScope.launch (Dispatchers.Main){
                     getQuestion(0)
+                    startTimer()
                 }
             }
         }
-        startTimer()
+
 
         binding.nextBtn.setOnClickListener{
             if(isClickBtn == true){
@@ -106,6 +114,7 @@ class VocabTestActivity : AppCompatActivity() {
             finish()
         }
     }
+
     public fun ClickChoose(view: View){
         btn_click = view as Button
         if(isClickBtn){
@@ -131,6 +140,7 @@ class VocabTestActivity : AppCompatActivity() {
         binding.btn3.setBackgroundResource(R.drawable.background_btn_choose);
     }
     private fun getQuestion(i:Int){
+
         var rnds = (0..3).random()
         val question = data?.get(i)
 //        wid = question?.words?.wid!!
@@ -168,7 +178,7 @@ class VocabTestActivity : AppCompatActivity() {
         }
     }
     private fun startTimer(){
-        val totalTimeInMillis = time.toInt() * 60 * 1000L
+        val totalTimeInMillis = time.toInt() * 30 * 1000L
         object : CountDownTimer(totalTimeInMillis,1000L){
             override fun onTick(millisUntilFinished: Long) {
                 val seconds = millisUntilFinished /1000

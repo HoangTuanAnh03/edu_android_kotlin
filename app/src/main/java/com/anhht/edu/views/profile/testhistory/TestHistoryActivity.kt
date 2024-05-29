@@ -21,7 +21,7 @@ class TestHistoryActivity : AppCompatActivity() {
         rv = binding.TestHistoryRecycleView
         rv.layoutManager = LinearLayoutManager(this)
         testViewModel = TestHistoryViewModel(TestHistoryAPIService())
-        testViewModel.getAllTestHistory().observe(this){data->
+        testViewModel.getAllTestHistory(this@TestHistoryActivity).observe(this){data->
             testAdapter = RVTestHistoryAdapter(this, data)
             rv.adapter = testAdapter
         }

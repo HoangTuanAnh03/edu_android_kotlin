@@ -1,5 +1,6 @@
 package com.anhht.edu.repository
 
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.anhht.edu.model.ResponseApi
@@ -14,7 +15,7 @@ import retrofit2.Response
 class TopicAPIService {
     private lateinit var topics: List<Topic>
     private val topicsByLevel: MutableLiveData<List<Topic>> = MutableLiveData<List<Topic>>()
-    fun getTopicByLid(lid:Int) : MutableLiveData<List<Topic>> {
+    fun getTopicByLid(context: Context, lid:Int) : MutableLiveData<List<Topic>> {
         val retrofit = ServiceBuilder.buildService(TopicAPI::class.java)
         retrofit.getTopicByLid(lid)!!.enqueue(
             object : Callback<ResponseApi<TopicByLevel>> {

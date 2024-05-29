@@ -25,6 +25,7 @@ class ConfirmRewardActivity : AppCompatActivity(){
 
         binding.lessBtn.setOnClickListener{
             val value = binding.editTextNumber.text.toString().toInt()
+            //Log.e("value", value.toString())
             if(value > 1){
                 changeNumberProduct(value-1, product)
             }
@@ -47,7 +48,7 @@ class ConfirmRewardActivity : AppCompatActivity(){
                     binding.editTextNumber.text.toString().toInt()
                 )
                 orderViewModel = OrderViewModel(OrderAPIService())
-                orderViewModel.addNewOrder(orderRequest).observe(this){d->
+                orderViewModel.addNewOrder(this@ConfirmRewardActivity ,orderRequest).observe(this@ConfirmRewardActivity){d->
                     Toast.makeText(applicationContext, d.message, Toast.LENGTH_LONG).show()
                     finish()
                 }

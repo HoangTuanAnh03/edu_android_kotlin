@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import android.view.KeyEvent
 import android.view.View
 import android.view.WindowManager
 import android.widget.Button
@@ -25,12 +26,12 @@ import com.anhht.edu.repository.WordAPIService
 import com.anhht.edu.viewmodels.CoinViewModel
 import com.anhht.edu.viewmodels.WordViewModel
 import com.anhht.edu.views.learn.Animation.Coin
-import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.io.IOException
+
 
 class LearnActivity : AppCompatActivity() , Runnable{
     private lateinit var binding: ActivityLearnBinding
@@ -61,16 +62,18 @@ class LearnActivity : AppCompatActivity() , Runnable{
         val extras : Bundle? = intent.extras
         val topic : Topic = extras?.get("topic") as Topic
         mDialog = Dialog(this)
-
-        binding.btnCheck.setOnClickListener{
+        binding.btnNext.setOnClickListener{
+            if(binding.muitipleChoice.visibility == View.GONE ){
+                if(binding.txtAns.text.toString() != ""){
+                    isClickBtn = true
+                    valueChoose = binding.txtAns.text.toString()
+                }
+            }
             if(isClickBtn){
-
                 coinViewModel = CoinViewModel(CoinAPIService())
-                coinViewModel.postAnswer(valueChoose, wid).observe(this@LearnActivity){d->
+                coinViewModel.postAnswer(this@LearnActivity, valueChoose, wid).observe(this@LearnActivity){d->
                     Log.e("data D", d.toString())
                     if(d.data != 0){
-
-                        //Snackbar.make(this,"Bạn đã nhận được " + d.data + " DATs", Snackbar.ANIMATION_MODE_FADE )
                         Toast.makeText(applicationContext, "Bạn đã nhận được " + d.data + " DATs", Toast.LENGTH_LONG).show()
                         coinAnimation = true
                     }else{
@@ -86,7 +89,7 @@ class LearnActivity : AppCompatActivity() , Runnable{
         }
 
         wordViewModel = WordViewModel(WordAPIService())
-        wordViewModel.getWordByTidTest(topic.tid).observe(this@LearnActivity){question->
+        wordViewModel.getWordByTid(this@LearnActivity, topic.tid).observe(this@LearnActivity){question->
             data = question
             Log.e("data", data.toString())
             GlobalScope.launch (Dispatchers.Main){
@@ -142,15 +145,22 @@ class LearnActivity : AppCompatActivity() , Runnable{
         super.onPause()
     }
     private fun getQuestion(i:Int){
+        val type = (0..1).random()
         val rnds = (0..3).random()
         val question = data?.get(i)
         wid = question?.words?.wid!!
         when (rnds) {
             1 -> binding.textQuestion.text = question.words.endesc
-            2 -> binding.textQuestion.text = String.format("Từ nào có nghĩa: %s\\n Phiên âm /%s/", question.words.meaning, question.words.pronun)
+            2 -> binding.textQuestion.text = String.format("Từ nào có nghĩa: %s\n Phiên âm /%s/", question.words.meaning, question.words.pronun)
             else -> binding.textQuestion.text = question.words.viedesc
         }
-
+        if(type == 0){
+            binding.textAnswer.visibility = View.VISIBLE
+            binding.muitipleChoice.visibility = View.GONE
+        }else{
+            binding.textAnswer.visibility = View.GONE
+            binding.muitipleChoice.visibility = View.VISIBLE
+        }
         binding.btnChoose1.text = question.answerA
         binding.btnChoose2.text = question.answerB
         binding.btnChoose3.text = question.answerC
@@ -181,6 +191,7 @@ class LearnActivity : AppCompatActivity() , Runnable{
         valueChoose = btn_click?.text.toString();
     }
     private fun resetChoose(){
+        binding.txtAns.text.clear()
         binding.btnChoose1.setBackgroundResource(R.drawable.background_btn_choose);
         binding.btnChoose2.setBackgroundResource(R.drawable.background_btn_choose);
         binding.btnChoose3.setBackgroundResource(R.drawable.background_btn_choose);

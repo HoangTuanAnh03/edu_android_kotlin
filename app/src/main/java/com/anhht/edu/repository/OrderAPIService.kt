@@ -2,6 +2,7 @@ package com.anhht.edu.repository
 
 import android.content.Context
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import com.anhht.edu.model.ResponseApi
 import com.anhht.edu.model.data.Order
@@ -19,7 +20,7 @@ import retrofit2.Response
 class OrderAPIService {
     private val responseOrder: MutableLiveData<ResponseApi<Order>> = MutableLiveData<ResponseApi<Order>>()
     private val orderHistory: MutableLiveData<List<OrderHistory>> = MutableLiveData<List<OrderHistory>>()
-    fun addNewOrder(order: OrderRequest) : MutableLiveData<ResponseApi<Order>>{
+    fun addNewOrder(context: Context, order: OrderRequest) : MutableLiveData<ResponseApi<Order>>{
         val retrofit = ServiceBuilder.buildService(OrderAPI::class.java)
         retrofit.addNewOrder(order)!!.enqueue(
             object : Callback<ResponseApi<Order>> {
@@ -33,13 +34,14 @@ class OrderAPIService {
                 }
                 override fun onFailure(call: Call<ResponseApi<Order>>, t: Throwable) {
                     Log.e("CoinAPI", t.message.toString())
+
                 }
             }
         )
         return responseOrder
     }
 
-    fun getOrderHistory() : MutableLiveData<List<OrderHistory>>{
+    fun getOrderHistory(context: Context) : MutableLiveData<List<OrderHistory>>{
         val retrofit = ServiceBuilder.buildService(OrderAPI::class.java)
         retrofit.getOrderHistory()!!.enqueue(
             object : Callback<ResponseApi<List<OrderHistory>>> {
@@ -52,7 +54,7 @@ class OrderAPIService {
                     orderHistory.value = data!!.data
                 }
                 override fun onFailure(call: Call<ResponseApi<List<OrderHistory>>>, t: Throwable) {
-                    Log.e("getOrderHistory", t.message.toString())
+
                 }
             }
         )
