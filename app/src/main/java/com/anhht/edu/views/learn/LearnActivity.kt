@@ -1,6 +1,7 @@
 package com.anhht.edu.views.learn
 
 import android.app.Dialog
+import android.graphics.Color
 import android.media.AudioManager
 import android.media.MediaPlayer
 import android.os.Bundle
@@ -42,7 +43,7 @@ class LearnActivity : AppCompatActivity() , Runnable{
     private lateinit var coinAPIService : CoinAPIService
     private var data: List<Question>?=null
     private var isClickBtn: Boolean = false
-    private var btn_click: Button?=null
+    private var btnClick: Button?=null
     private var valueChoose: String = ""
     private var mDialog: Dialog?=null
     private var coinAnimation = false
@@ -61,6 +62,9 @@ class LearnActivity : AppCompatActivity() , Runnable{
         coinAPIService = CoinAPIService()
         val extras : Bundle? = intent.extras
         val topic : Topic = extras?.get("topic") as Topic
+
+        binding.topicName.text = topic.topic
+
         mDialog = Dialog(this)
         binding.btnCheck.setOnClickListener{
             if(binding.muitipleChoice.visibility == View.GONE ){
@@ -179,19 +183,24 @@ class LearnActivity : AppCompatActivity() , Runnable{
         }
     }
     public fun ClickChoose(view: View){
-        btn_click = view as Button
+        btnClick = view as Button
         if(isClickBtn){
             resetChoose()
         }
         chooseBtn();
     }
     private fun chooseBtn(){
-        btn_click?.setBackgroundResource(R.drawable.background_btn_choose_color);
+        btnClick?.setTextColor(Color.WHITE)
+        btnClick?.setBackgroundResource(R.drawable.background_btn_choose_color);
         isClickBtn = true;
-        valueChoose = btn_click?.text.toString();
+        valueChoose = btnClick?.text.toString();
     }
     private fun resetChoose(){
         binding.txtAns.text.clear()
+        binding.btnChoose1.setTextColor(Color.BLACK)
+        binding.btnChoose2.setTextColor(Color.BLACK)
+        binding.btnChoose3.setTextColor(Color.BLACK)
+        binding.btnChoose4.setTextColor(Color.BLACK)
         binding.btnChoose1.setBackgroundResource(R.drawable.background_btn_choose);
         binding.btnChoose2.setBackgroundResource(R.drawable.background_btn_choose);
         binding.btnChoose3.setBackgroundResource(R.drawable.background_btn_choose);

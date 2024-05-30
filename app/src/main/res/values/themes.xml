@@ -23,8 +23,8 @@
     </style>
 
     <style name="ThemeOverlay.App.BottomNavigationView" parent="">
-        <item name="colorPrimary">@color/blue</item>
-        <item name="colorOnPrimary">#03A9F4</item>
+        <item name="colorPrimary">#008EFF</item>
+        <item name="colorOnPrimary">#00B0FF</item>
     </style>
 
     <style name="StepView">

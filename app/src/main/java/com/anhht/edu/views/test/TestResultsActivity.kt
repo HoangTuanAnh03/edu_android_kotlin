@@ -35,12 +35,12 @@ class TestResultsActivity : AppCompatActivity() {
         binding.scoreProgressIndicator.progress = percentage
 
         if(percentage>60){
-            binding.scoreTitle.text = "Congrats! You have passed"
-            binding.resultImg.setImageResource(R.drawable.congrats)
+            binding.scoreTitle.text = "Chúc mừng bạn\nđã hoàn thành xuất sắc"
+//            binding.resultImg.setImageResource(R.drawable.congrats)
             binding.scoreTitle.setTextColor(Color.BLUE)
         }else{
-            binding.scoreTitle.text = "Oops! You have failed"
-            binding.resultImg.setImageResource(R.drawable.failed)
+            binding.scoreTitle.text = "Hãy chăm chỉ hơn nhé"
+//            binding.resultImg.setImageResource(R.drawable.failed)
             binding.scoreTitle.setTextColor(Color.RED)
         }
         binding.scoreSubtitle.text = "Bạn đã trả lời đúng $matchCount/$totalQuestions"

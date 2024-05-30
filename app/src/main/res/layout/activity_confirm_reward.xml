@@ -1,87 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".views.reward.ConfirmRewardActivity"
-    android:layout_width="match_parent">
+    android:background="@color/white"
+    tools:context=".views.reward.ConfirmRewardActivity">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content">
+
         <RelativeLayout
             android:id="@+id/actionbarConfirmReward"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:background="@color/white"
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_height="55dp"
+            android:background="@color/blue"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
             <ImageView
                 android:id="@+id/rewardBack"
-                android:src="@drawable/ic_back2"
                 android:layout_width="22dp"
-                android:layout_marginEnd="5dp"
-                android:layout_marginStart="10dp"
+                android:layout_height="22dp"
                 android:layout_centerVertical="true"
-                android:layout_height="22dp">
-            </ImageView>
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/ic_back2"/>
+
             <TextView
                 android:layout_width="wrap_content"
-                android:text="Xác Nhận Đổi Thưởng"
-                android:textSize="24sp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginTop="5dp"
-                android:textStyle="bold"
-                android:layout_centerVertical="true"
+                android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_height="wrap_content">
-            </TextView>
+                android:layout_centerVertical="true"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:text="Xác Nhận Đổi Thưởng"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                android:textStyle="bold"/>
         </RelativeLayout>
+
         <RelativeLayout
             android:id="@+id/levelTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginEnd="16dp"
             android:padding="3dp"
-            app:layout_constraintTop_toBottomOf="@+id/actionbarConfirmReward"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-            <TextView
-                android:id="@+id/rewardTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Thông Tin Đơn Hàng"
-                android:textAlignment="center"
-                android:textSize="30sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginBottom="15dp"
-                app:layout_constraintTop_toTopOf="parent">
-            </TextView>
-            <TextView
-                android:id="@+id/productDetailLable"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Thông Tin Sản Phẩm"
-                android:textColor="@color/gray"
-                android:textStyle="bold"
-                android:layout_below="@+id/rewardTitle"
-                android:textSize="18sp"
-                android:layout_marginBottom="10dp"
-                app:layout_constraintTop_toTopOf="parent">
-            </TextView>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/actionbarConfirmReward">
+
             <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_below="@+id/productDetailLable"
                 android:id="@+id/rewardCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 app:cardCornerRadius="10dp"
                 app:cardElevation="5dp"
-                android:layout_height="wrap_content">
+                app:cardUseCompatPadding="true">
 
                 <RelativeLayout
                     android:id="@+id/rewardItem"
@@ -101,28 +80,15 @@
 
                     <RelativeLayout
                         android:id="@+id/rewardDetail"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
+                        android:layout_width="188dp"
+                        android:layout_height="119dp"
+                        android:layout_marginStart="9dp"
                         android:layout_toEndOf="@+id/rewardImage">
-
-                        <TextView
-                            android:id="@+id/appName"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="3dp"
-                            android:text="DATLearn Gift"
-                            android:textColor="@color/gray"
-                            android:textSize="15sp"
-                            android:textStyle="bold">
-
-                        </TextView>
 
                         <TextView
                             android:id="@+id/rewardName"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/appName"
                             android:layout_marginStart="3dp"
                             android:layout_marginTop="5dp"
                             android:text="Bút Thiên Long"
@@ -137,7 +103,7 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/rewardName"
                             android:layout_marginStart="3dp"
-                            android:layout_marginTop="2dp">
+                            android:layout_marginTop="12dp">
 
                             <androidx.appcompat.widget.AppCompatButton
                                 android:id="@+id/lessBtn"
@@ -160,6 +126,7 @@
                                 android:layout_toEndOf="@+id/lessBtn"
                                 android:background="@color/transparent"
                                 android:cursorVisible="false"
+                                android:layout_marginHorizontal="8dp"
                                 android:focusable="false"
                                 android:focusableInTouchMode="false"
                                 android:inputType="number"
@@ -176,8 +143,7 @@
                                 android:minWidth="35dp"
                                 android:minHeight="0dp"
                                 android:text="+"
-                                android:textStyle="bold">
-                            </androidx.appcompat.widget.AppCompatButton>
+                                android:textStyle="bold" />
                         </RelativeLayout>
 
                         <TextView
@@ -185,7 +151,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/numberProduct"
-                            android:layout_marginTop="3dp"
+                            android:layout_marginTop="18dp"
                             android:layout_marginEnd="10dp"
                             android:gravity="end"
                             android:text="$100 dats"
@@ -198,63 +164,74 @@
 
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
+
             <TextView
-                android:layout_marginTop="20dp"
                 android:id="@+id/rewardDetailLable"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/rewardCard"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
                 android:text="Thông Tin Người Nhận"
                 android:textColor="@color/gray"
-                android:textStyle="bold"
-                android:layout_below="@+id/rewardCard"
                 android:textSize="18sp"
-                android:layout_marginBottom="10dp"
-                app:layout_constraintTop_toTopOf="parent">
-            </TextView>
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent"/>
+
             <RelativeLayout
-                android:layout_below="@+id/rewardDetailLable"
-                android:layout_width="match_parent"
                 android:id="@+id/orderInfor"
-                android:layout_height="wrap_content">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rewardDetailLable">
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/phoneNumber"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Số điện thoại">
+
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/rewardPhoneNumber"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="phone" />
                 </com.google.android.material.textfield.TextInputLayout>
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/address"
-                    android:layout_marginTop="9dp"
-                    android:layout_below="@+id/phoneNumber"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_below="@+id/phoneNumber"
+                    android:layout_marginTop="9dp"
                     android:hint="Địa chỉ">
+
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/rewardAddress"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text" />
+
+
                 </com.google.android.material.textfield.TextInputLayout>
             </RelativeLayout>
-            <androidx.appcompat.widget.AppCompatButton
-                android:layout_below="@+id/orderInfor"
-                android:layout_marginTop="20dp"
+
+
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/rewardConfirm"
-                android:text="Xác Nhận Đổi Thưởng"
-                android:textStyle="bold"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                android:background="@color/primary_color"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            </androidx.appcompat.widget.AppCompatButton>
+                android:layout_height="60dp"
+                android:layout_below="@+id/orderInfor"
+                android:layout_marginTop="33dp"
+                android:layout_marginBottom="24dp"
+                android:backgroundTint="@color/blue"
+                android:text="Xác nhận"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:cornerRadius="5dp" />
+
         </RelativeLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
