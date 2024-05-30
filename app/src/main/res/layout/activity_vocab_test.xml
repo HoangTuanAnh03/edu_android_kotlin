@@ -24,7 +24,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:text="Bài Kiểm Tra"
-            android:textSize="24dp"
+            android:textSize="24sp"
             android:layout_marginBottom="5dp"
             android:layout_marginTop="5dp"
             android:textStyle="bold"
@@ -108,7 +108,7 @@
                     tools:text="Ans A"
                     android:textColor="@color/black"
                     android:paddingVertical="12dp"
-                    android:onClick="ClickChoose"
+                    android:onClick="clickChoose"
                     android:textSize="18sp"
                     android:id="@+id/btn0" />
                 <androidx.appcompat.widget.AppCompatButton
@@ -116,7 +116,7 @@
                     android:background="@drawable/background_btn_choose"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="4dp"
-                    android:onClick="ClickChoose"
+                    android:onClick="clickChoose"
                     tools:text="Ans B"
                     android:textColor="@color/black"
                     android:paddingVertical="12dp"
@@ -127,7 +127,7 @@
                     android:background="@drawable/background_btn_choose"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="4dp"
-                    android:onClick="ClickChoose"
+                    android:onClick="clickChoose"
                     tools:text="Ans C"
                     android:textColor="@color/black"
                     android:paddingVertical="12dp"
@@ -136,7 +136,7 @@
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:onClick="ClickChoose"
+                    android:onClick="clickChoose"
                     android:layout_marginVertical="4dp"
                     android:background="@drawable/background_btn_choose"
                     tools:text="Ans D"

@@ -24,7 +24,7 @@ class VocabTestActivity : AppCompatActivity() {
     lateinit var binding: ActivityVocabTestBinding
     private var data: List<Question>?=null
     private var isClickBtn: Boolean = false
-    private var btn_click: Button?=null
+    private var btnClick: Button?=null
     private var valueChoose: String = ""
     private var userAnswerList : ArrayList<String> = ArrayList()
     private var dbAnswerList : ArrayList<String> = ArrayList()
@@ -36,9 +36,7 @@ class VocabTestActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityVocabTestBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
     }
-
     override fun onResume() {
         super.onResume()
         wordViewModel = WordViewModel(WordAPIService())
@@ -48,7 +46,6 @@ class VocabTestActivity : AppCompatActivity() {
                 finish()
             }else{
                 data = question.data
-                Log.e("data", data!!.size.toString())
                 binding.preBtn.visibility = View.GONE
                 time = data!!.size.toString()
                 GlobalScope.launch (Dispatchers.Main){
@@ -57,10 +54,8 @@ class VocabTestActivity : AppCompatActivity() {
                 }
             }
         }
-
-
         binding.nextBtn.setOnClickListener{
-            if(isClickBtn == true){
+            if(isClickBtn){
                 isClickBtn = false
                 resetChoose()
                 i++
@@ -68,26 +63,12 @@ class VocabTestActivity : AppCompatActivity() {
                     if(i < it?.size!!){
                         getQuestion(i)
                         if(i == it.size.minus(1)){
-                            binding.nextBtn.text = "Kết thúc"
+                            binding.nextBtn.text = String.format("Kết thúc")
                         }else{
                             binding.preBtn.visibility = View.VISIBLE
                         }
                     }else{
-                        var matchCount = 0
-                        for (i in userAnswerList.indices) {
-                            if (userAnswerList[i] == dbAnswerList[i]) {
-                                matchCount++
-                            }
-                        }
-                        val intent = Intent(this, TestResultsActivity::class.java)
-                        val bundle = Bundle()
-                        bundle.putSerializable("userAnswerList", userAnswerList)
-                        bundle.putSerializable("dbAnswerList", dbAnswerList)
-                        bundle.putSerializable("matchCount", matchCount)
-                        bundle.putSerializable("questionList", questionList)
-                        intent.putExtras(bundle)
-                        startActivity(intent)
-                        finish()
+                        submitForm()
                     }
                 }
             }
@@ -99,7 +80,7 @@ class VocabTestActivity : AppCompatActivity() {
                 if(i > 0){
                     i -= 1
                     getQuestion(i)
-                    binding.nextBtn.text = "Tiếp Theo"
+                    binding.nextBtn.text = String.format("Tiếp Theo")
                     if(i == 0){
                         binding.preBtn.visibility = View.GONE
                     }else{
@@ -115,17 +96,17 @@ class VocabTestActivity : AppCompatActivity() {
         }
     }
 
-    public fun ClickChoose(view: View){
-        btn_click = view as Button
+    public fun clickChoose(view: View){
+        btnClick = view as Button
         if(isClickBtn){
             resetChoose()
         }
         chooseBtn();
     }
     private fun chooseBtn(){
-        btn_click?.setBackgroundResource(R.drawable.background_btn_choose_color);
+        btnClick?.setBackgroundResource(R.drawable.background_btn_choose_color);
         isClickBtn = true;
-        valueChoose = btn_click?.text.toString();
+        valueChoose = btnClick?.text.toString();
         if(userAnswerList.size - 1 < i){
             userAnswerList.add(valueChoose)
         }
@@ -140,16 +121,15 @@ class VocabTestActivity : AppCompatActivity() {
         binding.btn3.setBackgroundResource(R.drawable.background_btn_choose);
     }
     private fun getQuestion(i:Int){
-
-        var rnds = (0..3).random()
         val question = data?.get(i)
-//        wid = question?.words?.wid!!
-        binding.questionIndicatorTextview.text = "Question ${i+1}/ ${data!!.size} "
+        binding.questionIndicatorTextview.text = String.format("Question ${i+1}/ ${data!!.size} ")
         binding.questionProgressIndicator.progress =
             ( i.toFloat() / data!!.size.toFloat() * 100 ).toInt()
-        if(rnds == 1) binding.questionTextview.text = question!!.words.endesc
-        else if(rnds == 2) binding.questionTextview.text = "Từ nào có nghĩa: " + question!!.words.meaning + "\n Phiên âm /" + question.words.pronun +"/"
-        else binding.questionTextview.text = question!!.words.viedesc
+        when ((0..3).random()) {
+            1 -> binding.questionTextview.text = question!!.words.endesc
+            2 -> binding.questionTextview.text = String.format("Từ nào có nghĩa: %s\n Phiên âm /%s/", question!!.words.meaning, question.words.pronun)
+            else -> binding.questionTextview.text = question!!.words.viedesc
+        }
         if(questionList.size > i){
             binding.questionTextview.text = questionList[i]
         }else{
@@ -164,16 +144,16 @@ class VocabTestActivity : AppCompatActivity() {
         if(userAnswerList.size - 1 >= i){
             val value = userAnswerList[i]
             if(binding.btn0.text == value){
-                ClickChoose(binding.btn0)
+                clickChoose(binding.btn0)
             }
             if(binding.btn1.text == value){
-                ClickChoose(binding.btn1)
+                clickChoose(binding.btn1)
             }
             if(binding.btn2.text == value){
-                ClickChoose(binding.btn2)
+                clickChoose(binding.btn2)
             }
             if(binding.btn3.text == value){
-                ClickChoose(binding.btn3)
+                clickChoose(binding.btn3)
             }
         }
     }
@@ -188,8 +168,36 @@ class VocabTestActivity : AppCompatActivity() {
 
             }
             override fun onFinish() {
-                //Finish the quiz
+                for(i in questionList.size..<data!!.size){
+                    when ((0..3).random()) {
+                        1 -> questionList.add(data!![i].words.endesc)
+                        2 -> questionList.add("Từ nào có nghĩa: " + data!![i].words.meaning + "\n Phiên âm /" + data!![i].words.pronun +"/")
+                        else -> questionList.add(data!![i].words.viedesc)
+                    }
+                    dbAnswerList.add(data!![i].words.word)
+                }
+                for(i in userAnswerList.size..<data!!.size){
+                    userAnswerList.add("")
+                }
+                submitForm()
             }
         }.start()
+    }
+    fun submitForm(){
+        var matchCount = 0
+        for (i in userAnswerList.indices) {
+            if (userAnswerList[i] == dbAnswerList[i]) {
+                matchCount++
+            }
+        }
+        val intent = Intent(this@VocabTestActivity, TestResultsActivity::class.java)
+        val bundle = Bundle()
+        bundle.putSerializable("userAnswerList", userAnswerList)
+        bundle.putSerializable("dbAnswerList", dbAnswerList)
+        bundle.putSerializable("matchCount", matchCount)
+        bundle.putSerializable("questionList", questionList)
+        intent.putExtras(bundle)
+        startActivity(intent)
+        finish()
     }
 }
